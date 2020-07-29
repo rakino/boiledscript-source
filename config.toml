@@ -1,4 +1,4 @@
-baseURL = "https://rakino.github.io/boiledscript-backup/"
+baseURL = "https://old.ultrarare.space/"
 #baseURL = "http://localhost:1313/"
 languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"                             # en / zh-cn / ... (This field determines which i18n file to use)
