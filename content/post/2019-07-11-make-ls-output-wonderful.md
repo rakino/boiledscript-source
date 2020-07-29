@@ -10,7 +10,7 @@ draft: true
 
 最开始我找到了 [colorls](https://github.com/athityakumar/colorls#installation), 但由于安装 colorls 需要同时安装一些 ruby 依赖，我就放弃了尝试（我不希望安装一些不一定用得上的软件）。
 
-![lsd](images/2019/07/11/screen_lsd.png)
+![lsd](/images/2019/07/11/screen_lsd.png)
 
 随后我发现了一个相似项目，[lsd](https://github.com/Peltoche/lsd)（上图），它是受到了 colorls 启发的，据称相较于 colorls 速度更快，且没有多余的依赖，这对我而言是很好的。
 
