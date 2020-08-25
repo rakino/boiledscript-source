@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>（译）Hugo 的全文 RSS - Boiledscript</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Junian Triajianto, Hilton Chain（译）" /><meta name="description" content="刚开始使用 Hugo 的时候，我发现它有一个很叫人不爽的默认设定：生成的 RSS 订阅源里只有文章的标题和部分文章（变量 Summary , 或者说 !--more-- 标签标记之前的内容），这样" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://old.ultrarare.space/post/2019-08-01-translation-full-text-rss-in-hugo/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="（译）Hugo 的全文 RSS" />
+<meta property="og:description" content="刚开始使用 Hugo 的时候，我发现它有一个很叫人不爽的默认设定：生成的 RSS 订阅源里只有文章的标题和部分文章（变量 Summary , 或者说 !--more-- 标签标记之前的内容），这样" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://old.ultrarare.space/post/2019-08-01-translation-full-text-rss-in-hugo/" />
+<meta property="article:published_time" content="2019-08-01T08:00:00+08:00" />
+<meta property="article:modified_time" content="2019-08-01T08:00:00+08:00" />
+<meta itemprop="name" content="（译）Hugo 的全文 RSS">
+<meta itemprop="description" content="刚开始使用 Hugo 的时候，我发现它有一个很叫人不爽的默认设定：生成的 RSS 订阅源里只有文章的标题和部分文章（变量 Summary , 或者说 !--more-- 标签标记之前的内容），这样">
+<meta itemprop="datePublished" content="2019-08-01T08:00:00+08:00" />
+<meta itemprop="dateModified" content="2019-08-01T08:00:00+08:00" />
+<meta itemprop="wordCount" content="972">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="（译）Hugo 的全文 RSS"/>
+<meta name="twitter:description" content="刚开始使用 Hugo 的时候，我发现它有一个很叫人不爽的默认设定：生成的 RSS 订阅源里只有文章的标题和部分文章（变量 Summary , 或者说 !--more-- 标签标记之前的内容），这样"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Boiledscript</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Boiledscript</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">（译）Hugo 的全文 RSS</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-08-01 </span>
+        
+          <span class="more-meta"> 约 972 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2019-08-01T08:00:00" title="August 1, 2019">August 1, 2019</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <p>刚开始使用 Hugo 的时候，我发现它有一个很叫人不爽的默认设定：生成的 RSS 订阅源里只有文章的标题和部分文章（变量 <code>Summary</code> , 或者说 <code>!--more--</code> 标签标记之前的内容），这样可能会造成一些不便。<del>而我又因为完全没理解 Hugo 的工作原理不知道该怎么办。</del></p>
+<p>所幸有<a href="https://www.godo.dev/tutorials/hugo-full-text-rss/">这篇文章</a>(或者说下文的原文)帮助我<del>渡过难关。</del></p>
+<h2 id="许可证相关">许可证相关</h2>
+<p>原文使用 <a href="http://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a> 授权，代码部分使用 <a href="https://www.godo.dev/p/about.html#mit-license">MIT许可证</a>；我在这里的译文则使用 <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a>，代码部分仍然是 MIT许可证。</p>
+<h2 id="正文">正文</h2>
+<p>在我的博客之旅中，我不时会把博文同步到其它站点，这些站点之一便是 <a href="https://codeproject.com/">CodeProject</a>。我得想这些站点提交 RSS 订阅源并在其中加上一个链接标签，之后他们便会拉取带有这个标签的博文。</p>
+<p>然而，Hugo 默认只会在 RSS 订阅源中显示文章的”摘要“。因而在我的博文达到一定长度的时候，它并不会包括整篇文章。<del>这可真叫人头疼。</del></p>
+<p>其实这也并不是什么大问题啦，很简单就可以解决的。</p>
+<p>首先，我们需要创建一个 RSS 订阅源的模板，据 Hugo 的文档所述，我们只需要把这个模板文件放到 <code>/layouts/_default/rss.xml</code> 即可。</p>
+<p>其次，从 Hugo 的网站上拷贝一份<a href="https://gohugo.io/templates/rss/#the-embedded-rss-xml">默认的 RSS 模板</a>写到里边，下面这些代码也便是 Hugo 提供的默认 RSS 模板。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-rss" data-lang="rss"><span class="nt">&lt;rss</span> <span class="na">version=</span><span class="s">&#34;2.0&#34;</span> <span class="na">xmlns:atom=</span><span class="s">&#34;http://www.w3.org/2005/Atom&#34;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;channel&gt;</span>
+    <span class="nt">&lt;title&gt;</span>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link&gt;</span>{{ .Permalink }}<span class="nt">&lt;/link&gt;</span>
+    <span class="nt">&lt;description&gt;</span>Recent content {{ if ne  .Title  .Site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ .Site.Title }}<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;generator&gt;</span>Hugo -- gohugo.io<span class="nt">&lt;/generator&gt;</span>{{ with .Site.LanguageCode }}
+    <span class="nt">&lt;language&gt;</span>{{.}}<span class="nt">&lt;/language&gt;</span>{{end}}{{ with .Site.Author.email }}
+    <span class="nt">&lt;managingEditor&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span class="nt">&lt;/managingEditor&gt;</span>{{end}}{{ with .Site.Author.email }}
+    <span class="nt">&lt;webMaster&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span class="nt">&lt;/webMaster&gt;</span>{{end}}{{ with .Site.Copyright }}
+    <span class="nt">&lt;copyright&gt;</span>{{.}}<span class="nt">&lt;/copyright&gt;</span>{{end}}{{ if not .Date.IsZero }}
+    <span class="nt">&lt;lastBuildDate&gt;</span>{{ .Date.Format &#34;Mon, 02 Jan 2006 15:04:05 -0700&#34; | safeHTML }}<span class="nt">&lt;/lastBuildDate&gt;</span>{{ end }}
+    {{ with .OutputFormats.Get &#34;RSS&#34; }}
+        {{ printf &#34;<span class="nt">&lt;atom:link</span> <span class="na">href=</span><span class="s">%q</span> <span class="na">rel=</span><span class="s">\&#34;self\&#34;</span> <span class="na">type=</span><span class="s">%q</span> <span class="nt">/&gt;</span>&#34; .Permalink .MediaType | safeHTML }}
+    {{ end }}
+    {{ range .Pages }}
+    <span class="nt">&lt;item&gt;</span>
+      <span class="nt">&lt;title&gt;</span>{{ .Title }}<span class="nt">&lt;/title&gt;</span>
+      <span class="nt">&lt;link&gt;</span>{{ .Permalink }}<span class="nt">&lt;/link&gt;</span>
+      <span class="nt">&lt;pubDate&gt;</span>{{ .Date.Format &#34;Mon, 02 Jan 2006 15:04:05 -0700&#34; | safeHTML }}<span class="nt">&lt;/pubDate&gt;</span>
+      {{ with .Site.Author.email }}<span class="nt">&lt;author&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span class="nt">&lt;/author&gt;</span>{{end}}
+      <span class="nt">&lt;guid&gt;</span>{{ .Permalink }}<span class="nt">&lt;/guid&gt;</span>
+      <span class="nt">&lt;description&gt;</span>{{ .Summary | html }}<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;/item&gt;</span>
+    {{ end }}
+  <span class="nt">&lt;/channel&gt;</span>
+<span class="nt">&lt;/rss&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后，再找到 <code>&lt;description&gt;</code> 标签（是 <code>&lt;item&gt;</code> 标签的子标签！），可见其默认状态下标记的内容是 <code>.Summary</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-rss" data-lang="rss"><span class="nt">&lt;description&gt;</span>{{ .Summary | html }}<span class="nt">&lt;/description&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在我们只需要把它替换成 <code>.Content</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-rss" data-lang="rss"><span class="nt">&lt;description&gt;</span>{{- .Content | html -}}<span class="nt">&lt;/description&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>好了！现在你的 Hugo 站点就可以在 RSS 订阅源中显示完整内容了~</p>
+<p>下面是最终的 <code>rss.xml</code> 文件，这是为伸手党准备的。<del>自然包括译者了</del></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-rss" data-lang="rss"><span class="nt">&lt;rss</span> <span class="na">version=</span><span class="s">&#34;2.0&#34;</span> <span class="na">xmlns:atom=</span><span class="s">&#34;http://www.w3.org/2005/Atom&#34;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;channel&gt;</span>
+    <span class="nt">&lt;title&gt;</span>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link&gt;</span>{{ .Permalink }}<span class="nt">&lt;/link&gt;</span>
+    <span class="nt">&lt;description&gt;</span>Recent content {{ if ne  .Title  .Site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ .Site.Title }}<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;generator&gt;</span>Hugo -- gohugo.io<span class="nt">&lt;/generator&gt;</span>{{ with .Site.LanguageCode }}
+    <span class="nt">&lt;language&gt;</span>{{.}}<span class="nt">&lt;/language&gt;</span>{{end}}{{ with .Site.Author.email }}
+    <span class="nt">&lt;managingEditor&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span class="nt">&lt;/managingEditor&gt;</span>{{end}}{{ with .Site.Author.email }}
+    <span class="nt">&lt;webMaster&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span class="nt">&lt;/webMaster&gt;</span>{{end}}{{ with .Site.Copyright }}
+    <span class="nt">&lt;copyright&gt;</span>{{.}}<span class="nt">&lt;/copyright&gt;</span>{{end}}{{ if not .Date.IsZero }}
+    <span class="nt">&lt;lastBuildDate&gt;</span>{{ .Date.Format &#34;Mon, 02 Jan 2006 15:04:05 -0700&#34; | safeHTML }}<span class="nt">&lt;/lastBuildDate&gt;</span>{{ end }}
+    {{ with .OutputFormats.Get &#34;RSS&#34; }}
+        {{ printf &#34;<span class="nt">&lt;atom:link</span> <span class="na">href=</span><span class="s">%q</span> <span class="na">rel=</span><span class="s">\&#34;self\&#34;</span> <span class="na">type=</span><span class="s">%q</span> <span class="nt">/&gt;</span>&#34; .Permalink .MediaType | safeHTML }}
+    {{ end }}
+    {{ range .Pages }}
+    <span class="nt">&lt;item&gt;</span>
+      <span class="nt">&lt;title&gt;</span>{{ .Title }}<span class="nt">&lt;/title&gt;</span>
+      <span class="nt">&lt;link&gt;</span>{{ .Permalink }}<span class="nt">&lt;/link&gt;</span>
+      <span class="nt">&lt;pubDate&gt;</span>{{ .Date.Format &#34;Mon, 02 Jan 2006 15:04:05 -0700&#34; | safeHTML }}<span class="nt">&lt;/pubDate&gt;</span>
+      {{ with .Site.Author.email }}<span class="nt">&lt;author&gt;</span>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}<span class="nt">&lt;/author&gt;</span>{{end}}
+      <span class="nt">&lt;guid&gt;</span>{{ .Permalink }}<span class="nt">&lt;/guid&gt;</span>
+      <span class="nt">&lt;description&gt;</span>{{- .Content | html -}}<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;/item&gt;</span>
+    {{ end }}
+  <span class="nt">&lt;/channel&gt;</span>
+<span class="nt">&lt;/rss&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>下次我会写更多 Hugo 方面的 hack 的！<del>可不是我！</del></p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://discourse.gohugo.io/t/full-text-rss-feed/8368/3">Full-text RSS feed</a> - Hugo Discussion</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Junian Triajianto, Hilton Chain（译）</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-08-01
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-08-02-start-x-at-boot/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">登入后直接进入 X</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2019-07-31-yet-another-first-post/">
+            <span class="next-text nav-default">又一次，“你好，世界”。</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:hako@ultrarare.space" class="iconfont icon-email" title="email"></a>
+      <a href="https://mastodon.social/@hakoesph" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/rakino" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/130868739" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://old.ultrarare.space/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Hilton Chain</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ESP 被霸占的解决方案 - Boiledscript</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Hilton Chain" /><meta name="description" content="两天前，我在新机上以 GPT &#43; EFI 的方式装好了 Arch Linux。 这天晚上，我开始安装 Deepin，然而它的安装器并未提供“不安装启动引导器”的选项，因而" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://old.ultrarare.space/post/2019-08-27-esp/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="ESP 被霸占的解决方案" />
+<meta property="og:description" content="两天前，我在新机上以 GPT &#43; EFI 的方式装好了 Arch Linux。 这天晚上，我开始安装 Deepin，然而它的安装器并未提供“不安装启动引导器”的选项，因而" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://old.ultrarare.space/post/2019-08-27-esp/" />
+<meta property="article:published_time" content="2019-08-27T08:00:00+08:00" />
+<meta property="article:modified_time" content="2019-08-27T08:00:00+08:00" />
+<meta itemprop="name" content="ESP 被霸占的解决方案">
+<meta itemprop="description" content="两天前，我在新机上以 GPT &#43; EFI 的方式装好了 Arch Linux。 这天晚上，我开始安装 Deepin，然而它的安装器并未提供“不安装启动引导器”的选项，因而">
+<meta itemprop="datePublished" content="2019-08-27T08:00:00+08:00" />
+<meta itemprop="dateModified" content="2019-08-27T08:00:00+08:00" />
+<meta itemprop="wordCount" content="935">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ESP 被霸占的解决方案"/>
+<meta name="twitter:description" content="两天前，我在新机上以 GPT &#43; EFI 的方式装好了 Arch Linux。 这天晚上，我开始安装 Deepin，然而它的安装器并未提供“不安装启动引导器”的选项，因而"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Boiledscript</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Boiledscript</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">ESP 被霸占的解决方案</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-08-27 </span>
+        
+          <span class="more-meta"> 约 935 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2019-08-27T08:00:00" title="August 27, 2019">August 27, 2019</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <p>两天前，我在新机上以 GPT + EFI 的方式装好了 Arch Linux。</p>
+<p>这天晚上，我开始安装 Deepin，然而它的安装器并未提供“不安装启动引导器”的选项，因而 ESP 被无情地霸占了…</p>
+<p>接下来该怎么做呢？重装 Arch Linux？显然不是。</p>
+<h2 id="什么是-esp">什么是 ESP？</h2>
+<p>这点显然不是我能简单解释的（我自己也是一知半解）。</p>
+<p>以下摘自 <a href="https://wiki.archlinux.org/index.php/EFI_system_partition_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Arch Linux Wiki</a>： &gt; <a href="https://en.wikipedia.org/wiki/EFI_System_partition">EFI 系统分区</a>(也称为 ESP 或者 EFISYS)是一个 FAT32 格式的物理分区 (在硬盘主分区表上，而不是 LVM 或软件 RAID 等等) ，从这里 <a href="https://wiki.archlinux.org/index.php/UEFI">UEFI</a> 固件启动 UEFI 引导器和应用程序。 &gt; &gt; 它与操作系统无关而是作为 EFI 固件要启动的引导器和应用程序的存储空间，是 UEFI 启动所必须。 &gt; &gt; 推荐使用 GPT 和 UEFI 搭配因为有的 UEFI 固件不支持 UEFI-MBR 启动。</p>
+<p>因为 EFI 支持的文件系统较少，大概都是 Fat32 这类的非日志式文件系统，且单文件大小限制已经不能满足现在的需求了，显然<strong>一般</strong>不会有人拿它作为日常文件系统，这时候倒不如专门分一个区。而被格式化为 Fat32 文件系统的 EFI 类型分区亦被称为 “ESP”。</p>
+<h2 id="被霸占了">被霸占了？</h2>
+<p>像 Grub 这样的引导加载器，是可以安装在 ESP 里边的，像系统内核、微码更新之类的东西也都放在里边；Deepin 的安装器没有把安装引导加载器的自主权交给用户（也许有面向群体的因素），把 ESP 给覆写了，现在没有 Arch Linux 的内核文件了，自然也就无法启动 Arch Linux 了。</p>
+<h2 id="怎样做">怎样做？</h2>
+<p><em>这里我会把 Grub 的控制权交给 Deepin（在它上面设置 Grub 还是挺方便的），并取消 Arch Linux 上对 ESP 的默认挂载，与此同时， Arch Linux 上的 <code>/boot</code> 变成了空文件夹，因而需要重新在其中放置内核和微码更新补丁镜像（此时重新安装是一个相对而言更方便的选择，我也不知道其它选择是什么。）</em></p>
+<p>首先需要进入到 Archiso（Arch Linux 的安装镜像），挂载好 Arch Linux 的根分区（不挂载 ESP，确保能访问到 Arch Linux 的 <code>/etc</code> 以及执行命令就好了）</p>
+<p>其次需要修改 Arch Linux 上的 <code>/etc/fstab</code>，删除与 ESP 有关的行。</p>
+<p>重新安装内核以及微码更新补丁（现在已经不再需要 Grub 了）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#（可选）我先卸载掉原先的内核，如果还想继续使用原先的内核则不必</span>
+pacman -Rscn linux
+
+<span class="c1">#这里我使用 linux-lts（long-term support，长期支持）内核，若想使用默认的 linux 内核，将 linux-lts 修改为 linux 即可</span>
+<span class="c1">#我的 CPU 是 AMD 的，因而需要安装 amd-ucode（AMD 的微码更新补丁），若是 Intel 的 CPU 则安装 intel-ucode</span>
+pacman -S linux-lts amd-ucode
+</code></pre></td></tr></table>
+</div>
+</div><p>然后可以离开 Archiso 进入 Deepin 了</p>
+<p>在 Deepin 中执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo update-grub2
+</code></pre></td></tr></table>
+</div>
+</div><p>结束。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Hilton Chain</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-08-27
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2019-08-26-some-updates/">
+            <span class="next-text nav-default">关于博客的一些更新</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:hako@ultrarare.space" class="iconfont icon-email" title="email"></a>
+      <a href="https://mastodon.social/@hakoesph" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/rakino" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/130868739" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://old.ultrarare.space/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Hilton Chain</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

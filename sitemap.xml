@@ -1,0 +1,121 @@
+<?xml-stylesheet type="text/xsl" href="https://old.ultrarare.space/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://old.ultrarare.space/</loc>
+    <lastmod>2019-08-27T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-08-27-esp/</loc>
+    <lastmod>2019-08-27T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/</loc>
+    <lastmod>2019-08-27T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-08-26-some-updates/</loc>
+    <lastmod>2019-08-26T20:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-08-26-messy/</loc>
+    <lastmod>2019-08-26T16:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-08-26-linux-28th-anniversary/</loc>
+    <lastmod>2019-08-26T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-08-10-new-domain-name/</loc>
+    <lastmod>2019-08-10T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-08-02-switching-to-i3wm/</loc>
+    <lastmod>2019-08-02T16:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-08-02-start-x-at-boot/</loc>
+    <lastmod>2019-08-02T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-08-01-translation-full-text-rss-in-hugo/</loc>
+    <lastmod>2019-08-01T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-07-31-yet-another-first-post/</loc>
+    <lastmod>2019-07-31T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-07-11-the-end-of-my-summer-holiday-2019/</loc>
+    <lastmod>2019-07-11T16:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-07-11-make-ls-output-wonderful/</loc>
+    <lastmod>2019-07-11T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-06-30-how-time-flies/</loc>
+    <lastmod>2019-06-30T16:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/post/2019-06-30-my-first-post/</loc>
+    <lastmod>2019-06-30T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/categories/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://old.ultrarare.space/tags/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>更加丰富多彩的 ls 输出 - Boiledscript</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Hilton Chain" /><meta name="description" content="作为一个 ls 高度依赖者, 我的 shell 历史记录里总是充满 “ls” 的字样，我甚至还在思想放空的时候不由自主敲着 “ls”，显然 ls 已经成了我生活中的一部分了" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://old.ultrarare.space/post/2019-07-11-make-ls-output-wonderful/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="更加丰富多彩的 ls 输出" />
+<meta property="og:description" content="作为一个 ls 高度依赖者, 我的 shell 历史记录里总是充满 “ls” 的字样，我甚至还在思想放空的时候不由自主敲着 “ls”，显然 ls 已经成了我生活中的一部分了" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://old.ultrarare.space/post/2019-07-11-make-ls-output-wonderful/" />
+<meta property="article:published_time" content="2019-07-11T08:00:00+08:00" />
+<meta property="article:modified_time" content="2019-07-11T08:00:00+08:00" />
+<meta itemprop="name" content="更加丰富多彩的 ls 输出">
+<meta itemprop="description" content="作为一个 ls 高度依赖者, 我的 shell 历史记录里总是充满 “ls” 的字样，我甚至还在思想放空的时候不由自主敲着 “ls”，显然 ls 已经成了我生活中的一部分了">
+<meta itemprop="datePublished" content="2019-07-11T08:00:00+08:00" />
+<meta itemprop="dateModified" content="2019-07-11T08:00:00+08:00" />
+<meta itemprop="wordCount" content="466">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="更加丰富多彩的 ls 输出"/>
+<meta name="twitter:description" content="作为一个 ls 高度依赖者, 我的 shell 历史记录里总是充满 “ls” 的字样，我甚至还在思想放空的时候不由自主敲着 “ls”，显然 ls 已经成了我生活中的一部分了"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Boiledscript</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Boiledscript</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">更加丰富多彩的 ls 输出</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-07-11 </span>
+        
+          <span class="more-meta"> 约 466 字 </span>
+          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2019-07-11T08:00:00" title="July 11, 2019">July 11, 2019</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <p>作为一个 ls 高度依赖者, 我的 shell 历史记录里总是充满 “ls” 的字样，我甚至还在思想放空的时候不由自主敲着 “ls”，显然 ls 已经成了我生活中的一部分了。</p>
+<p>即便有 &ndash;color=auto 的加成, 在图形界面下却总是面对着纯文本的环境多少还是有些叫人乏味；当我了解到还有更加多彩（没错, 我喜欢鲜艳颜色）并且能同时输出与文件相对应的图标 (由一个字符充当) 时, 我立刻心动了。</p>
+<p>最开始我找到了 <a href="https://github.com/athityakumar/colorls#installation">colorls</a>, 但由于安装 colorls 需要同时安装一些 ruby 依赖，我就放弃了尝试（我不希望安装一些不一定用得上的软件）。</p>
+<p><img src="/images/2019/07/11/screen_lsd.png" alt="lsd"></p>
+<p>随后我发现了一个相似项目，<a href="https://github.com/Peltoche/lsd">lsd</a>（上图），它是受到了 colorls 启发的，据称相较于 colorls 速度更快，且没有多余的依赖，这对我而言是很好的。</p>
+<p>在安装了 lsd 后，我在显示图标上遇到了麻烦；这是字体不足造成的，只需安装相应字体即可。</p>
+<p>我选择了一个十分齐全的字体集合 <code>nerd-fonts-complete</code>（<a href="https://aur.archlinux.org/packages/nerd-fonts-complete/">AUR</a> 及 <a href="https://github.com/ryanoasis/nerd-fonts">Github</a>，在 Arch Linux CN 源中也有包括该包），这样我就不必再遇到更多麻烦了。</p>
+<p>接下来就是替代 ls 了（其实也不算替代）， 只需要在 shell 配置文件中写下这行设置 ls 的别名即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">alias</span> <span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;lsd&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>另外一些有用的别名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">alias</span> <span class="nv">l</span><span class="o">=</span><span class="s1">&#39;ls -l&#39;</span>
+<span class="nb">alias</span> <span class="nv">la</span><span class="o">=</span><span class="s1">&#39;ls -a&#39;</span>
+<span class="nb">alias</span> <span class="nv">lla</span><span class="o">=</span><span class="s1">&#39;ls -la&#39;</span>
+<span class="nb">alias</span> <span class="nv">lt</span><span class="o">=</span><span class="s1">&#39;ls --tree&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Hilton Chain</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-07-11
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2019-07-11-the-end-of-my-summer-holiday-2019/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">暑假结束了</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2019-06-30-how-time-flies/">
+            <span class="next-text nav-default">六月，匆匆</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:hako@ultrarare.space" class="iconfont icon-email" title="email"></a>
+      <a href="https://mastodon.social/@hakoesph" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/rakino" class="iconfont icon-github" title="github"></a>
+      <a href="https://space.bilibili.com/130868739" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://old.ultrarare.space/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Hilton Chain</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Boiledscript</title>
+    <link>https://old.ultrarare.space/</link>
+    <description>Recent content on Boiledscript</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 27 Aug 2019 08:00:00 +0800</lastBuildDate><atom:link href="https://old.ultrarare.space/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ESP 被霸占的解决方案</title>
+      <link>https://old.ultrarare.space/post/2019-08-27-esp/</link>
+      <pubDate>Tue, 27 Aug 2019 08:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-08-27-esp/</guid>
+      <description>&lt;p&gt;两天前，我在新机上以 GPT + EFI 的方式装好了 Arch Linux。&lt;/p&gt;
+&lt;p&gt;这天晚上，我开始安装 Deepin，然而它的安装器并未提供“不安装启动引导器”的选项，因而 ESP 被无情地霸占了…&lt;/p&gt;
+&lt;p&gt;接下来该怎么做呢？重装 Arch Linux？显然不是。&lt;/p&gt;
+&lt;h2 id=&#34;什么是-esp&#34;&gt;什么是 ESP？&lt;/h2&gt;
+&lt;p&gt;这点显然不是我能简单解释的（我自己也是一知半解）。&lt;/p&gt;
+&lt;p&gt;以下摘自 &lt;a href=&#34;https://wiki.archlinux.org/index.php/EFI_system_partition_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&#34;&gt;Arch Linux Wiki&lt;/a&gt;： &amp;gt; &lt;a href=&#34;https://en.wikipedia.org/wiki/EFI_System_partition&#34;&gt;EFI 系统分区&lt;/a&gt;(也称为 ESP 或者 EFISYS)是一个 FAT32 格式的物理分区 (在硬盘主分区表上，而不是 LVM 或软件 RAID 等等) ，从这里 &lt;a href=&#34;https://wiki.archlinux.org/index.php/UEFI&#34;&gt;UEFI&lt;/a&gt; 固件启动 UEFI 引导器和应用程序。 &amp;gt; &amp;gt; 它与操作系统无关而是作为 EFI 固件要启动的引导器和应用程序的存储空间，是 UEFI 启动所必须。 &amp;gt; &amp;gt; 推荐使用 GPT 和 UEFI 搭配因为有的 UEFI 固件不支持 UEFI-MBR 启动。&lt;/p&gt;
+&lt;p&gt;因为 EFI 支持的文件系统较少，大概都是 Fat32 这类的非日志式文件系统，且单文件大小限制已经不能满足现在的需求了，显然&lt;strong&gt;一般&lt;/strong&gt;不会有人拿它作为日常文件系统，这时候倒不如专门分一个区。而被格式化为 Fat32 文件系统的 EFI 类型分区亦被称为 “ESP”。&lt;/p&gt;
+&lt;h2 id=&#34;被霸占了&#34;&gt;被霸占了？&lt;/h2&gt;
+&lt;p&gt;像 Grub 这样的引导加载器，是可以安装在 ESP 里边的，像系统内核、微码更新之类的东西也都放在里边；Deepin 的安装器没有把安装引导加载器的自主权交给用户（也许有面向群体的因素），把 ESP 给覆写了，现在没有 Arch Linux 的内核文件了，自然也就无法启动 Arch Linux 了。&lt;/p&gt;
+&lt;h2 id=&#34;怎样做&#34;&gt;怎样做？&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;这里我会把 Grub 的控制权交给 Deepin（在它上面设置 Grub 还是挺方便的），并取消 Arch Linux 上对 ESP 的默认挂载，与此同时， Arch Linux 上的 &lt;code&gt;/boot&lt;/code&gt; 变成了空文件夹，因而需要重新在其中放置内核和微码更新补丁镜像（此时重新安装是一个相对而言更方便的选择，我也不知道其它选择是什么。）&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;首先需要进入到 Archiso（Arch Linux 的安装镜像），挂载好 Arch Linux 的根分区（不挂载 ESP，确保能访问到 Arch Linux 的 &lt;code&gt;/etc&lt;/code&gt; 以及执行命令就好了）&lt;/p&gt;
+&lt;p&gt;其次需要修改 Arch Linux 上的 &lt;code&gt;/etc/fstab&lt;/code&gt;，删除与 ESP 有关的行。&lt;/p&gt;
+&lt;p&gt;重新安装内核以及微码更新补丁（现在已经不再需要 Grub 了）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#（可选）我先卸载掉原先的内核，如果还想继续使用原先的内核则不必&lt;/span&gt;
+pacman -Rscn linux
+
+&lt;span class=&#34;c1&#34;&gt;#这里我使用 linux-lts（long-term support，长期支持）内核，若想使用默认的 linux 内核，将 linux-lts 修改为 linux 即可&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;#我的 CPU 是 AMD 的，因而需要安装 amd-ucode（AMD 的微码更新补丁），若是 Intel 的 CPU 则安装 intel-ucode&lt;/span&gt;
+pacman -S linux-lts amd-ucode
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后可以离开 Archiso 进入 Deepin 了&lt;/p&gt;
+&lt;p&gt;在 Deepin 中执行&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;sudo update-grub2
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;结束。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>关于博客的一些更新</title>
+      <link>https://old.ultrarare.space/post/2019-08-26-some-updates/</link>
+      <pubDate>Mon, 26 Aug 2019 20:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-08-26-some-updates/</guid>
+      <description>&lt;p&gt;很显然，这篇 post 其实也是有预先计划的。&lt;/p&gt;
+&lt;p&gt;然而出现了一些小问题&lt;del&gt;是我眼瞎没错了&lt;/del&gt;，blog 上出现了某些变故，所以计划有所改动。&lt;/p&gt;
+&lt;h2 id=&#34;host-provider&#34;&gt;Host Provider&lt;/h2&gt;
+&lt;p&gt;目前我已经不再使用 GitHub 了，网页托管在 Zeit ，&lt;del&gt;一个可以让你在命令行下买域名的公司2333。&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;虽然该公司和 GitHub 的表面性质有所类似，但至少背后没有什么不得了的人吧..&lt;/p&gt;
+&lt;h2 id=&#34;dns&#34;&gt;DNS&lt;/h2&gt;
+&lt;p&gt;Gandi.net 的 LiveDNS 的处理事件的速度实在是不敢恭维… 因此我将 nameserver 换成 Zeit 的了。&lt;/p&gt;
+&lt;p&gt;在命令行下边设置 DNS 记录也是一件挺有趣的事情。&lt;/p&gt;
+&lt;h2 id=&#34;博客&#34;&gt;博客&lt;/h2&gt;
+&lt;p&gt;万幸，移动硬盘在搁置一段时间后仍然无恙，于是我把 Boiled Script 和 Rakino 这两个博客（都是最近写的，只是心态有所不同）合并了；然而因为我的误操作&lt;del&gt;明明是眼瞎&lt;/del&gt;，我已经没有它们的源文件了。&lt;/p&gt;
+&lt;p&gt;不过由于之前部署过，加上现在也给它们设置了 ALIAS ，还是能够通过 &lt;code&gt;boiledscript.ultrarare.space&lt;/code&gt; 或者 &lt;code&gt;rakino.ultrarare.space&lt;/code&gt;（两者指向同一个页面）访问到。&lt;/p&gt;
+&lt;p&gt;要想访问到这里的话，可以通过 &lt;code&gt;{www, blog}.ultrarare.space&lt;/code&gt;，也同样都是 ALIAS。&lt;/p&gt;
+&lt;p&gt;因为自己想法变化得很快，所以设置了一个内容过时提示（时间是 10 天），希望不会误导到任何人。&lt;/p&gt;
+&lt;p&gt;主题方面，仍然是 Even，但是这个主题使用的一些功能快要过时了（Hugo 将会在新版本取消它们），而我对于这个主题的全局并没有太多理解（我对前端也是一无所知）。&lt;del&gt;那就到时候出了问题的时候再说吧。&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;我准备写/修改一份文档来规范自己的博文写作，也许会在我稍微清醒些后吧。&lt;/p&gt;
+&lt;p&gt;以上。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>整理旧物</title>
+      <link>https://old.ultrarare.space/post/2019-08-26-messy/</link>
+      <pubDate>Mon, 26 Aug 2019 16:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-08-26-messy/</guid>
+      <description>&lt;p&gt;又是新的别离与重逢啊。&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;其实这是 25 日做的事，只是一直没有写而已&lt;/del&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;总是感觉自己的杂物太多了，到处放着一团糟。而新机机箱的盒子还是挺大的，正好可以把东西都放进去。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;就让我们来回忆一番吧！&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;旧机&#34;&gt;旧机&lt;/h2&gt;
+&lt;p&gt;旧机是这里边年龄最大的了（10岁），然而我并没有什么想说的话。&lt;/p&gt;
+&lt;p&gt;很是杂乱的线，原装的 CPU 还装在一个小的透明塑料盒中，放在我面前的显示器旁~~（好像这个仍然不是原装的…）~~&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/old-pc-outer.jpg&#34; alt=&#34;Old PC&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;minecraft-相关&#34;&gt;Minecraft 相关&lt;/h2&gt;
+&lt;p&gt;Minecraft 对我来讲，算是很深的回忆了… 毕竟最初能称为网友的人，也都是在玩游戏的过程中遇到的。&lt;/p&gt;
+&lt;p&gt;很重要，但是不敢再想。&lt;/p&gt;
+&lt;p&gt;Gameband 请永眠吧，这两个玩具倒是可以拿出来放着…&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/minecraft-related-3.jpg&#34; alt=&#34;Minecraft related things&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;raspberry-pi&#34;&gt;Raspberry Pi&lt;/h2&gt;
+&lt;p&gt;买了一小堆相关的东西，然而还是没怎么用。&lt;/p&gt;
+&lt;p&gt;中间那个是摄像头，本来想拿来拍些照片做 Timelapse，结果烧坏了…&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/raspberry-pi-3b-plus.jpg&#34; alt=&#34;Raspberry Pi 3b+&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;手机&#34;&gt;手机&lt;/h2&gt;
+&lt;p&gt;我还完全记得当时打开这个盒子的情形，可惜一切都过得好快啊…&lt;/p&gt;
+&lt;p&gt;是时候跟你说再见了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/phone-in-the-box.jpg&#34; alt=&#34;Smartisan OC105&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;换壳如换机&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/lie-above-the-boxes.jpg&#34; alt=&#34;Phone related&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;外设&#34;&gt;外设&lt;/h2&gt;
+&lt;p&gt;靠下的那个键盘是旧机带的 PS/2 键盘，除了左侧没有 Win 键以外都还好…&lt;/p&gt;
+&lt;p&gt;右上的耳机，最开始是为了游戏（ CS:GO ）准备的，然而随着我慢慢离开游戏，也生灰了。&lt;/p&gt;
+&lt;p&gt;左上的键鼠本来是为 Raspberry Pi 准备的，不过现在出了些问题，也用不上了。&lt;/p&gt;
+&lt;p&gt;至于那个耳机，为手机准备的，依旧用不上了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/outsets.jpg&#34; alt=&#34;outsets&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;yugioh&#34;&gt;YuGiOh&lt;/h2&gt;
+&lt;p&gt;如你所见或所知（抑或你压根不知道），我很喜欢《游戏王》及其衍生产品。&lt;/p&gt;
+&lt;p&gt;我也有买过&lt;strong&gt;一个&lt;/strong&gt;相关的产品，应当是在 2014 年发行的（而我是在 2018 年买的）“决斗王的记忆：黑暗仪式篇”，是一个收藏卡组（里面的卡牌基本不能胜任现在大师规则4的环境了）。&lt;/p&gt;
+&lt;p&gt;该盒收录有在 YuGiOh: Duel Monsters（游戏王：决斗怪兽）结局时，Mutou Yugi（武藤游戏）与 Yami Yugi/Atum（暗游戏/亚图姆/法老王/王様）进行打开冥界大门的仪式时 Mutou Yugi 所使用的卡组&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/yugioh-box-outer.jpg&#34; alt=&#34;YuGiOh Box&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/yugioh-box.jpg&#34; alt=&#34;YuGiOh box&#34;&gt;&lt;/p&gt;
+&lt;p&gt;有附带几张观赏卡（未展示），其中包含一张 拉的翼神龙（太阳神的翼神龙/黄金脆皮鸡）的复刻卡（但有标明禁止用于正规比赛，虽说现在这年头也没人用）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/yugioh-cards.jpg&#34; alt=&#34;YuGiOh cards&#34;&gt;&lt;/p&gt;
+&lt;p&gt;一份关于游戏王卡牌发展史的纪念册&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/yugioh-history.jpg&#34; alt=&#34;YuGiOh history&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;大概就这样了吧。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这些东西其实是按照时间先后顺序排列的&lt;/p&gt;
+&lt;p&gt;还好在我写这篇 post 的时候还是存在一点痛苦… 致使我既不难过也不开心。&lt;/p&gt;
+&lt;p&gt;但是我在之前状态较正常有看到一句话，当时认为可以给在这里（但因为我目前的情绪可能与文字并不匹配）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;来世不可待，往世不可追也。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;是这样没有错。&lt;del&gt;（鬼知道到底明没明白…）&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;将要来而没有来的，是未来，没有人确切知道它将在什么时候断开，而选择去等待，最终却也只是等来那个唯一的断点而已，这真是叫人难受；至于过去，倘若说当前正面对滚滚逝去的江水，还能有谁能做些什么呢？&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>为 Linux 迟来的生日祝福</title>
+      <link>https://old.ultrarare.space/post/2019-08-26-linux-28th-anniversary/</link>
+      <pubDate>Mon, 26 Aug 2019 08:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-08-26-linux-28th-anniversary/</guid>
+      <description>&lt;p&gt;因为注意力的问题渐渐淡出社交媒体的同时发现自己好像连新闻都没看了…&lt;/p&gt;
+&lt;p&gt;按照惯例，我恰巧在 Linux 内核的 28 岁生日的第二天看到了与之相关的文章。&lt;/p&gt;
+&lt;p&gt;虽说可能常规来讲整十或者整五的年头才值得纪念，但我并不了解自己能否在两年后的 8 月 25 日记得（或者说还有没有机会记得）这件事，所以这里先写一份。届时如果有机会的话，也正好有一个对比自己在不同时段想法的依托，这样挺不错的。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;与此同时，这里（博客）悄悄地发生着某些改变，然而我依旧没想好什么时候作出一个说明，也许是一次跳票吧…&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;其实最后还是没提什么…&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;根据记忆的规律，我已经完全忘掉了第一次接触“Linux”这个词是在什么时候。&lt;/p&gt;
+&lt;p&gt;大概是在 Java 的官网下载安装程序的时候发现还有许多没听说过的操作系统，以及结合在 MCBBS 上下载文件的时候发现的那个挺可爱的“小企鹅”的图标，让我认为这世界上还能有和糟糕的 Windows 和（当时）令人憧憬的 macOS（当时应该叫 OS X，还没改名）相提并论的操作系统。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;事实证明，并没有，但也不赖。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;那是在某年某月的一个暑假，仍然没有做作业的我发现自己对于 Windows 有种莫名的厌倦，因为自己有知道还存在其它的操作系统（但并没有了解过相关的东西），于是打开百度进行搜索（所幸那个年头的百度还能搜索到有价值的东西）。&lt;/p&gt;
+&lt;p&gt;如果不是不会烧制（虽讲 burn，但并非真的烧，&lt;del&gt;是真的烧才是怪事&lt;/del&gt;，应当是某种惯用语？）启动盘，也许我就会安装 FreeBSD，然后可能因为不会使用而对 UNIX-like 产生不好的印象，从而退回到 Windows，并因此失去许多机会。&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;那可真感谢当时笨拙的我啊&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;百般折腾并付出惨痛代价后，我终于装上了 Ubuntu Kylin，&lt;del&gt;然而因为语言没有安装万全而怀疑系统有问题，遂又装上 Windows 了…&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;在&lt;strong&gt;我认为&lt;/strong&gt; Baidu 及其相关服务对我还有意义的时候，我还是经常逛贴吧的，从那里学到了很多梗之类的东西（意义不明），总之后来所遇到的东西大都和这没有关系…&lt;/p&gt;
+&lt;p&gt;现在总感觉他们是另一个世界的人了。&lt;/p&gt;
+&lt;p&gt;同期，我也在不断更换着发行版（其实只是把 Deb 系和 RPM 系的主流发行版基本都试了个遍而已，称不上收割者）&lt;/p&gt;
+&lt;p&gt;大概就是这样，刚才看错了，一不小心 &lt;code&gt;rm -r post/&lt;/code&gt;，而本应该是 &lt;code&gt;rm -r posts/&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;过去一个月的 post 全没了….&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;为了弥补错过了 Linux 的生日，献上所有的 post！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;后来发现这天并不是 Linux 的生日&lt;/del&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>终于有独立域名了</title>
+      <link>https://old.ultrarare.space/post/2019-08-10-new-domain-name/</link>
+      <pubDate>Sat, 10 Aug 2019 08:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-08-10-new-domain-name/</guid>
+      <description>&lt;p&gt;大概又在瞎折腾了吧。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;我不该把键盘借出去的，&lt;del&gt;尤其是借给一个游戏玩家…&lt;/del&gt; &lt;code&gt;W&lt;/code&gt; &lt;code&gt;S&lt;/code&gt; &lt;code&gt;A&lt;/code&gt; &lt;code&gt;D&lt;/code&gt; 附近的按键有点问题了&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;一不小心睡懵了，不过也还行，总算是休息了一会儿了&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;绪&#34;&gt;绪&lt;/h2&gt;
+&lt;p&gt;也许是从很早之前有了 blogging 的打算 &lt;del&gt;还没有想好怎样开始写作博文的时候&lt;/del&gt;，我就想要拥有一个&lt;strong&gt;属于自己&lt;/strong&gt;（相较从 Freenom 这种流氓地方注册的而言）的域名了，今天总算是成功了。&lt;/p&gt;
+&lt;h2 id=&#34;缘起&#34;&gt;缘起&lt;/h2&gt;
+&lt;p&gt;脑子里的时间线总是扭作一团，虽然很容易较为清晰地找到每一个事件，然而对于先后顺序却毫无头绪…&lt;/p&gt;
+&lt;p&gt;总之在某年某月某日，我又一次重装系统并安装配置 Thunderbird 作为邮件客户端时，我看到了 &lt;code&gt;Gandi.net&lt;/code&gt; 的字眼；与我想象的不同，这并非注册信箱的地方，而更与域名注册相关。&lt;/p&gt;
+&lt;p&gt;在这里注册域名后也会附赠信箱（这样我就可以选择一个信箱专门接受&lt;del&gt;垃圾邮件&lt;/del&gt;注册相关的邮件了），Gandi 的 DNS 也是很不错的~&lt;/p&gt;
+&lt;p&gt;十分感谢 Thunderbird 让我有幸发现这样一个用户友好且尊重个人隐私的注册商，支付后的电子订单上甚至连任何详细信息都没有~~，就跟被钓了一样~~。&lt;/p&gt;
+&lt;h2 id=&#34;新地址&#34;&gt;新地址&lt;/h2&gt;
+&lt;p&gt;暂且还是使用 GitHub Pages 来托管这个博客，我也不会再修改我的 GitHub 账户的 username，所以还是可以通过 &lt;code&gt;rakino.github.io&lt;/code&gt; 来访问（之后会被重定向到 &lt;code&gt;blog.ultrarare.space&lt;/code&gt;）。不过如果我有找到更加合适的托管方案的话也会果断离开 GitHub 的（因为它特殊的背景，其它 Git 服务也许会更得我的心意… 也许会考虑再注册一个 Keybase 帐号？ 然而因为它是一家美国公司的缘故还是不能叫人很放心…）&lt;/p&gt;
+&lt;p&gt;至于我的域名 &lt;code&gt;ultrarare.space&lt;/code&gt; &lt;del&gt;究级罕见的地方&lt;/del&gt;，我是比较中意 .space 的，但苦于找不到相搭配的词语（之前有想到过其它的但已被注册），突然想起 Yu-Gi-Oh 中的罕贵度 &lt;code&gt;Ultra Rare&lt;/code&gt;（说实话其实有点烂大街的“究级稀有卡”，大概平常人能买到的最珍贵的 UR 卡一般也不会超过 CNY 50）&lt;/p&gt;
+&lt;p&gt;为何没有在域名中使用任何与我身份（名字）有关的词语？我也有一个提供非盈利自由网络服务的梦啊，这样的话自然使用任何自己的名字都有些不妥，&lt;del&gt;况且我还是一个可能经常换名字的人&lt;/del&gt;…&lt;/p&gt;
+&lt;p&gt;对了，我又一次换了信箱，现在是 &lt;del&gt;la [at] ultrarare [dot] space&lt;/del&gt;（许久以前就已经没了）。 la 是 Esperanto 中唯一的冠词，但我并未想好到底后面该用什么名词（曾想过 La viro 但是又觉得不妥），以至于出现语言混用 + 语法错误的毛病….&lt;/p&gt;
+&lt;h2 id=&#34;一些打算&#34;&gt;一些打算&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;想找到压缩图片的办法，我使用的图片体积都还算是比较大的，虽然 GitHub Pages 有用 CDN，然而在国内错综复杂的网络环境下浏览这样的网页简直是谋财害命啊…&lt;/li&gt;
+&lt;li&gt;找到一个自由（参见 &lt;a href=&#34;https://beijinglug.club/free-software-free-tools/&#34;&gt;Benjamin Mako Hill: 自由软件需要自由工具&lt;/a&gt;）的公共 Git 服务（虽然有找到一些，但是还是希望能发现用户人群比较有趣的站点）&lt;/li&gt;
+&lt;li&gt;该准备 About 页面了，是否该弄个 Links 呢？&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>再见，Xmonad；你好，i3wm</title>
+      <link>https://old.ultrarare.space/post/2019-08-02-switching-to-i3wm/</link>
+      <pubDate>Fri, 02 Aug 2019 16:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-08-02-switching-to-i3wm/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/wallpaper.png&#34; alt=&#34;void desktop or wallpaper&#34;&gt;
+在用了一段时间 Xmonad 以后，我还是决定将 i3wm，确切说是 i3-gaps 作为了我的窗口管理器。&lt;/p&gt;
+&lt;p&gt;Xmonad 是个相当理想的窗口管理器，其配置相当灵活强大，囊括众多细节，然而也就是这点让我离开了它。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;对我来讲，过于复杂，学习成本太高了…&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;不得不承认，Haskell 是一门十分优秀的语言，从 Xmonad —— 由它写作的应用之一中也可见一般，然而，我并不希望做一点很小的事（或者说，已知可用其它应用很简单就实现）就需要查阅大量的文档——这对于我本来就很缺乏的精力来讲无疑是一种“毁灭”。&lt;/p&gt;
+&lt;p&gt;相较而言，i3wm 更加容易上手一些（尽管没有那么灵活强大）：对配置文件无须再有多余的学习，几乎是一眼就能看懂；不需要各种引入功能，直接在很“宏观”的层面上去做就是了。i3-gaps 是 i3wm 的一个 fork，带有窗口间隔的功能（其实这也说明了 i3wm 的缺点：功能不足，自认为，Xmonad 的配置过程像是在“创作”，因为可以利用的东西太多，而 i3wm 的配置过程更像是对着图纸搭积木）。这里是我的&lt;a href=&#34;https://gist.github.com/rakino/b9f8f0fe1126f7c70d454c4e9f23bb47&#34;&gt;配置文件&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;这次试着使用 KiTTY 作为终端模拟器，它在键盘操作方面十分不错，不久以后我就能登入一台服务器了，有这样一个完美的本地终端模拟器 + 远程终端连接器还是十分不错的。（update: KiTTY 使用 ssh 存在某些问题，也许以后会讲解决方案）&lt;/p&gt;
+&lt;p&gt;配合着 pywal 自动根据桌面背景更改 shell 配色，&lt;del&gt;我就再也不用担心自己搞的瞎了眼的配色了。&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;大概就是这样，以下附图！&lt;del&gt;（图片可点击）&lt;/del&gt;（已关闭 Fancybox）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/single-terminal.png&#34; alt=&#34;single terminal&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/multiple-terminal.png&#34; alt=&#34;multiple terminal&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/editing-i3-config-file-under-vim.png&#34; alt=&#34;editing i3 config file under vim&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/ranger-previewing-image.png&#34; alt=&#34;ranger previewing image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/firefox.png&#34; alt=&#34;firefox&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>登入后直接进入 X</title>
+      <link>https://old.ultrarare.space/post/2019-08-02-start-x-at-boot/</link>
+      <pubDate>Fri, 02 Aug 2019 08:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-08-02-start-x-at-boot/</guid>
+      <description>&lt;p&gt;大概我没有办法完全活在 TTY 下吧。&lt;/p&gt;
+&lt;p&gt;那样的话每次登入后都要手动输入一次 &lt;code&gt;startx&lt;/code&gt; 又有什么意思？&lt;/p&gt;
+&lt;p&gt;登录管理器？不行，有点浪费资源！&lt;/p&gt;
+&lt;p&gt;那我就用其它方法吧&lt;/p&gt;
+&lt;h2 id=&#34;原料&#34;&gt;原料&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;xinit&lt;/code&gt;，&lt;code&gt;~/.xinitrc&lt;/code&gt; 已配置好&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bash&lt;/code&gt; or &lt;code&gt;zsh&lt;/code&gt; or &lt;code&gt;fish&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;具体操作&#34;&gt;具体操作&lt;/h2&gt;
+&lt;p&gt;对于 &lt;code&gt;bash&lt;/code&gt;，需要修改 &lt;code&gt;~/.bash_profile&lt;/code&gt;；而 &lt;code&gt;zsh&lt;/code&gt; 则是 &lt;code&gt;~/.zlogin&lt;/code&gt; 或 &lt;code&gt;~/.zprofile&lt;/code&gt;。在上述文件中加入一行即可&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;o&#34;&gt;[[&lt;/span&gt; -z &lt;span class=&#34;nv&#34;&gt;$DISPLAY&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$XDG_VTNR&lt;/span&gt; -eq &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; startx
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; 表示逻辑与；&lt;code&gt;[[ ]]&lt;/code&gt; 为条件表达式，返回值为 0 或 1 。&lt;/p&gt;
+&lt;p&gt;此语句指：当 &lt;code&gt;$DISPLAY&lt;/code&gt;（是否已打开显示）为零且 &lt;code&gt;$XDG_VTNR&lt;/code&gt;（现在所处虚拟控制台号码）等于 1 时，（且）执行 &lt;code&gt;startx&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;fish 中则是在 &lt;code&gt;~/.config/fish/config.fish&lt;/code&gt; 中加入以下内容&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# start X at login&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; status --is-login
+  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; -z &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$DISPLAY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; -a &lt;span class=&#34;nv&#34;&gt;$XDG_VTNR&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;exec&lt;/span&gt; startx
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;test&lt;/code&gt; 和 &lt;code&gt;[[ ]]&lt;/code&gt; 用法相似。&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;可以每次开机少打一行字了ww&lt;/del&gt;&lt;/p&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://wiki.archlinux.org/index.php/Xinit#Autostart_X_at_login&#34;&gt;Autostart X at login&lt;/a&gt; - Arch Wiki&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>（译）Hugo 的全文 RSS</title>
+      <link>https://old.ultrarare.space/post/2019-08-01-translation-full-text-rss-in-hugo/</link>
+      <pubDate>Thu, 01 Aug 2019 08:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-08-01-translation-full-text-rss-in-hugo/</guid>
+      <description>&lt;p&gt;刚开始使用 Hugo 的时候，我发现它有一个很叫人不爽的默认设定：生成的 RSS 订阅源里只有文章的标题和部分文章（变量 &lt;code&gt;Summary&lt;/code&gt; , 或者说 &lt;code&gt;!--more--&lt;/code&gt; 标签标记之前的内容），这样可能会造成一些不便。&lt;del&gt;而我又因为完全没理解 Hugo 的工作原理不知道该怎么办。&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;所幸有&lt;a href=&#34;https://www.godo.dev/tutorials/hugo-full-text-rss/&#34;&gt;这篇文章&lt;/a&gt;(或者说下文的原文)帮助我&lt;del&gt;渡过难关。&lt;/del&gt;&lt;/p&gt;
+&lt;h2 id=&#34;许可证相关&#34;&gt;许可证相关&lt;/h2&gt;
+&lt;p&gt;原文使用 &lt;a href=&#34;http://creativecommons.org/licenses/by/4.0/&#34;&gt;CC-BY 4.0&lt;/a&gt; 授权，代码部分使用 &lt;a href=&#34;https://www.godo.dev/p/about.html#mit-license&#34;&gt;MIT许可证&lt;/a&gt;；我在这里的译文则使用 &lt;a href=&#34;https://creativecommons.org/licenses/by-sa/4.0/&#34;&gt;CC-BY-SA 4.0&lt;/a&gt;，代码部分仍然是 MIT许可证。&lt;/p&gt;
+&lt;h2 id=&#34;正文&#34;&gt;正文&lt;/h2&gt;
+&lt;p&gt;在我的博客之旅中，我不时会把博文同步到其它站点，这些站点之一便是 &lt;a href=&#34;https://codeproject.com/&#34;&gt;CodeProject&lt;/a&gt;。我得想这些站点提交 RSS 订阅源并在其中加上一个链接标签，之后他们便会拉取带有这个标签的博文。&lt;/p&gt;
+&lt;p&gt;然而，Hugo 默认只会在 RSS 订阅源中显示文章的”摘要“。因而在我的博文达到一定长度的时候，它并不会包括整篇文章。&lt;del&gt;这可真叫人头疼。&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;其实这也并不是什么大问题啦，很简单就可以解决的。&lt;/p&gt;
+&lt;p&gt;首先，我们需要创建一个 RSS 订阅源的模板，据 Hugo 的文档所述，我们只需要把这个模板文件放到 &lt;code&gt;/layouts/_default/rss.xml&lt;/code&gt; 即可。&lt;/p&gt;
+&lt;p&gt;其次，从 Hugo 的网站上拷贝一份&lt;a href=&#34;https://gohugo.io/templates/rss/#the-embedded-rss-xml&#34;&gt;默认的 RSS 模板&lt;/a&gt;写到里边，下面这些代码也便是 Hugo 提供的默认 RSS 模板。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-rss&#34; data-lang=&#34;rss&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;rss&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;version=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;2.0&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:atom=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://www.w3.org/2005/Atom&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;lt;channel&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;link&amp;gt;&lt;/span&gt;{{ .Permalink }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/link&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;Recent content {{ if ne  .Title  .Site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ .Site.Title }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;generator&amp;gt;&lt;/span&gt;Hugo -- gohugo.io&lt;span class=&#34;nt&#34;&gt;&amp;lt;/generator&amp;gt;&lt;/span&gt;{{ with .Site.LanguageCode }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;language&amp;gt;&lt;/span&gt;{{.}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/language&amp;gt;&lt;/span&gt;{{end}}{{ with .Site.Author.email }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;managingEditor&amp;gt;&lt;/span&gt;{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/managingEditor&amp;gt;&lt;/span&gt;{{end}}{{ with .Site.Author.email }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;webMaster&amp;gt;&lt;/span&gt;{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/webMaster&amp;gt;&lt;/span&gt;{{end}}{{ with .Site.Copyright }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;copyright&amp;gt;&lt;/span&gt;{{.}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/copyright&amp;gt;&lt;/span&gt;{{end}}{{ if not .Date.IsZero }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;lastBuildDate&amp;gt;&lt;/span&gt;{{ .Date.Format &amp;#34;Mon, 02 Jan 2006 15:04:05 -0700&amp;#34; | safeHTML }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/lastBuildDate&amp;gt;&lt;/span&gt;{{ end }}
+    {{ with .OutputFormats.Get &amp;#34;RSS&amp;#34; }}
+        {{ printf &amp;#34;&lt;span class=&#34;nt&#34;&gt;&amp;lt;atom:link&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;%q&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;rel=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\&amp;#34;self\&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;%q&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;&amp;#34; .Permalink .MediaType | safeHTML }}
+    {{ end }}
+    {{ range .Pages }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;item&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;{{ .Title }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;link&amp;gt;&lt;/span&gt;{{ .Permalink }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/link&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;pubDate&amp;gt;&lt;/span&gt;{{ .Date.Format &amp;#34;Mon, 02 Jan 2006 15:04:05 -0700&amp;#34; | safeHTML }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/pubDate&amp;gt;&lt;/span&gt;
+      {{ with .Site.Author.email }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;author&amp;gt;&lt;/span&gt;{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/author&amp;gt;&lt;/span&gt;{{end}}
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;guid&amp;gt;&lt;/span&gt;{{ .Permalink }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/guid&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;{{ .Summary | html }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/item&amp;gt;&lt;/span&gt;
+    {{ end }}
+  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/channel&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/rss&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;最后，再找到 &lt;code&gt;&amp;lt;description&amp;gt;&lt;/code&gt; 标签（是 &lt;code&gt;&amp;lt;item&amp;gt;&lt;/code&gt; 标签的子标签！），可见其默认状态下标记的内容是 &lt;code&gt;.Summary&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-rss&#34; data-lang=&#34;rss&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;{{ .Summary | html }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;现在我们只需要把它替换成 &lt;code&gt;.Content&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-rss&#34; data-lang=&#34;rss&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;{{- .Content | html -}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;好了！现在你的 Hugo 站点就可以在 RSS 订阅源中显示完整内容了~&lt;/p&gt;
+&lt;p&gt;下面是最终的 &lt;code&gt;rss.xml&lt;/code&gt; 文件，这是为伸手党准备的。&lt;del&gt;自然包括译者了&lt;/del&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-rss&#34; data-lang=&#34;rss&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;rss&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;version=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;2.0&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:atom=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://www.w3.org/2005/Atom&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;lt;channel&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;link&amp;gt;&lt;/span&gt;{{ .Permalink }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/link&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;Recent content {{ if ne  .Title  .Site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ .Site.Title }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;generator&amp;gt;&lt;/span&gt;Hugo -- gohugo.io&lt;span class=&#34;nt&#34;&gt;&amp;lt;/generator&amp;gt;&lt;/span&gt;{{ with .Site.LanguageCode }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;language&amp;gt;&lt;/span&gt;{{.}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/language&amp;gt;&lt;/span&gt;{{end}}{{ with .Site.Author.email }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;managingEditor&amp;gt;&lt;/span&gt;{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/managingEditor&amp;gt;&lt;/span&gt;{{end}}{{ with .Site.Author.email }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;webMaster&amp;gt;&lt;/span&gt;{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/webMaster&amp;gt;&lt;/span&gt;{{end}}{{ with .Site.Copyright }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;copyright&amp;gt;&lt;/span&gt;{{.}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/copyright&amp;gt;&lt;/span&gt;{{end}}{{ if not .Date.IsZero }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;lastBuildDate&amp;gt;&lt;/span&gt;{{ .Date.Format &amp;#34;Mon, 02 Jan 2006 15:04:05 -0700&amp;#34; | safeHTML }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/lastBuildDate&amp;gt;&lt;/span&gt;{{ end }}
+    {{ with .OutputFormats.Get &amp;#34;RSS&amp;#34; }}
+        {{ printf &amp;#34;&lt;span class=&#34;nt&#34;&gt;&amp;lt;atom:link&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;%q&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;rel=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\&amp;#34;self\&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;%q&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;&amp;#34; .Permalink .MediaType | safeHTML }}
+    {{ end }}
+    {{ range .Pages }}
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;item&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;{{ .Title }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;link&amp;gt;&lt;/span&gt;{{ .Permalink }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/link&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;pubDate&amp;gt;&lt;/span&gt;{{ .Date.Format &amp;#34;Mon, 02 Jan 2006 15:04:05 -0700&amp;#34; | safeHTML }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/pubDate&amp;gt;&lt;/span&gt;
+      {{ with .Site.Author.email }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;author&amp;gt;&lt;/span&gt;{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/author&amp;gt;&lt;/span&gt;{{end}}
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;guid&amp;gt;&lt;/span&gt;{{ .Permalink }}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/guid&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;description&amp;gt;&lt;/span&gt;{{- .Content | html -}}&lt;span class=&#34;nt&#34;&gt;&amp;lt;/description&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/item&amp;gt;&lt;/span&gt;
+    {{ end }}
+  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/channel&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/rss&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;下次我会写更多 Hugo 方面的 hack 的！&lt;del&gt;可不是我！&lt;/del&gt;&lt;/p&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://discourse.gohugo.io/t/full-text-rss-feed/8368/3&#34;&gt;Full-text RSS feed&lt;/a&gt; - Hugo Discussion&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>又一次，“你好，世界”。</title>
+      <link>https://old.ultrarare.space/post/2019-07-31-yet-another-first-post/</link>
+      <pubDate>Wed, 31 Jul 2019 08:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-07-31-yet-another-first-post/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;每当某人的 GitHub 上 commits 迭起时，所有人都会知道：那家伙多半 blog 又废了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;不知道为什么，Arch Linux 无法读取我的移动硬盘，储存在上面的 boiledscript 自然失去了存在价值，又因为手残把 GitHub 上相应的私人仓库给删了。&lt;del&gt;Goodbye, Boiled Script!&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;因为网络环境的关系，还是选择了&lt;del&gt;不需要下载太多东西的（不然我就用 Hexo 了，可以实现自动部署多方便）&lt;del&gt;Hugo 作为静态页面生成器；训练期间&lt;/del&gt;摸鱼&lt;/del&gt;发现了一个叫 Even 的主题，看起来很不错。&lt;/p&gt;
+&lt;p&gt;之前也有在 Freenom 注册了一个免费的 .tk 域名，又用 Cloudflare 搞了一堆&lt;del&gt;我看不懂&lt;/del&gt;的东西，然而似乎在国内用 Cloudflare 不一定很好（？），Freenom 也不是个好东西，遂离开了这些平台。&lt;/p&gt;
+&lt;h2 id=&#34;又一次-blogging&#34;&gt;又一次 blogging&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;因为玩手机用眼过度的缘故~~，我已经思维混乱挺久了，不知道到底该干什么。大概现在也是如此，所以遇到阅读障碍还请见谅。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;就在昨天（7月30日），我偶然发现了一个博客，也许博主正在一年前去世了；我能想到什么呢？我什么也想不到。&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;我甚至为了在昨天看完这个人所有的博文而没有做作业&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;若是我有机会自发发现的人，大抵都有相似之处。而也正是因为这种仅有一点的相似，让我不免有了对未来的担忧，是那虚渺的未来没错。&lt;/p&gt;
+&lt;p&gt;如果我有一天也那样消失掉了，是否有人会说出：“还好留下了 blog 可以了解其想法”的话呢？&lt;/p&gt;
+&lt;h2 id=&#34;新装的-arch-linux&#34;&gt;新装的 Arch Linux&lt;/h2&gt;
+&lt;p&gt;在不久以前，我&lt;del&gt;因为尝试安装 FreeBSD &lt;del&gt;把引导加载器搞坏了（也不再有启动分区了），费了些周折，我还是&lt;/del&gt;在把两个硬盘都给格式化后&lt;/del&gt;把一切都搞定了，大概现在是 Deepin GNU/Linux（非我用）+ Arch Linux 双系统吧，终于摆脱了需要顾及到 Micro$oft Windows 的烦恼了耶！&lt;/p&gt;
+&lt;p&gt;现在也开始使用 Syncthing（Web GUI万岁！）在不同设备间同步数据，以免再次玩脱时浪费时间和出现不必要的损失。&lt;/p&gt;
+&lt;p&gt;至于桌面环境，仍然是纯 Xmonad，我更乐意在一个足够安静，没有多余打扰的环境下&lt;del&gt;生存&lt;/del&gt;；我也成功叛教成为了 Vim 党。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/07/31/spacevim.png&#34; alt=&#34;SpaceVim&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/07/31/ranger_in_sakura.png&#34; alt=&#34;Ranger&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/07/31/blog_preview_in_firefox.png&#34; alt=&#34;Blog Preview&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/07/31/markdown_environment.png&#34; alt=&#34;Markdown Environment&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>暑假结束了</title>
+      <link>https://old.ultrarare.space/post/2019-07-11-the-end-of-my-summer-holiday-2019/</link>
+      <pubDate>Thu, 11 Jul 2019 16:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-07-11-the-end-of-my-summer-holiday-2019/</guid>
+      <description>&lt;p&gt;昨晚接到通知，明天要尽早回校参加训练。&lt;/p&gt;
+&lt;p&gt;难得的暑假也只是这么少数几天，挺叫人难受的；不过既然我连键盘都给借出去了，待在家也的确没有太多乐趣。想到 8 月就要上学，还得再参加一次军训，心里也不知是该喜还是该忧…&lt;/p&gt;
+&lt;p&gt;今天下午进了城，坐在书房中，窗外甚是空旷，悠悠天地裹住了世间万物，这样一般景象是难以在群山之间看到的。这里能作为城市而存在，想必也与这样的地理环境分不开。&lt;/p&gt;
+&lt;p&gt;远方的云延绵有如丝绸，虽然各有厚薄明暗，却也都同那条没有尽头的河流向更远的远方靠拢了。&lt;/p&gt;
+&lt;p&gt;昨日老家的景象，与这很不相同: 眼前所能见到的，不过房前屋后的树林，所谓 “远方”，也已经遥远到了只剩下一丝朦胧而不定的微光；时间更像是凝固了一般，也许我所见的，与我的祖先并无什么不同。人生很是漫长，无事值得慌张，甚至有一丝避世隐居的念想在我脑海浮现。&lt;/p&gt;
+&lt;p&gt;但是我不能，这样的宁谧之外的东西注定有一天会抹掉这一切的存在，那几位受雇来收拾屋顶的农民，即便此生可以这样没有固定工作或是做着这般危险活计，然而在他们以后呢? 可能这样危险但有可能谋生的工作的也不在了吧…&lt;/p&gt;
+&lt;p&gt;即便未见到，河流也还在那里缓缓流着。但听到的却总是桥上奔走的车声，这是为何？&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>更加丰富多彩的 ls 输出</title>
+      <link>https://old.ultrarare.space/post/2019-07-11-make-ls-output-wonderful/</link>
+      <pubDate>Thu, 11 Jul 2019 08:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-07-11-make-ls-output-wonderful/</guid>
+      <description>&lt;p&gt;作为一个 ls 高度依赖者, 我的 shell 历史记录里总是充满 “ls” 的字样，我甚至还在思想放空的时候不由自主敲着 “ls”，显然 ls 已经成了我生活中的一部分了。&lt;/p&gt;
+&lt;p&gt;即便有 &amp;ndash;color=auto 的加成, 在图形界面下却总是面对着纯文本的环境多少还是有些叫人乏味；当我了解到还有更加多彩（没错, 我喜欢鲜艳颜色）并且能同时输出与文件相对应的图标 (由一个字符充当) 时, 我立刻心动了。&lt;/p&gt;
+&lt;p&gt;最开始我找到了 &lt;a href=&#34;https://github.com/athityakumar/colorls#installation&#34;&gt;colorls&lt;/a&gt;, 但由于安装 colorls 需要同时安装一些 ruby 依赖，我就放弃了尝试（我不希望安装一些不一定用得上的软件）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/07/11/screen_lsd.png&#34; alt=&#34;lsd&#34;&gt;&lt;/p&gt;
+&lt;p&gt;随后我发现了一个相似项目，&lt;a href=&#34;https://github.com/Peltoche/lsd&#34;&gt;lsd&lt;/a&gt;（上图），它是受到了 colorls 启发的，据称相较于 colorls 速度更快，且没有多余的依赖，这对我而言是很好的。&lt;/p&gt;
+&lt;p&gt;在安装了 lsd 后，我在显示图标上遇到了麻烦；这是字体不足造成的，只需安装相应字体即可。&lt;/p&gt;
+&lt;p&gt;我选择了一个十分齐全的字体集合 &lt;code&gt;nerd-fonts-complete&lt;/code&gt;（&lt;a href=&#34;https://aur.archlinux.org/packages/nerd-fonts-complete/&#34;&gt;AUR&lt;/a&gt; 及 &lt;a href=&#34;https://github.com/ryanoasis/nerd-fonts&#34;&gt;Github&lt;/a&gt;，在 Arch Linux CN 源中也有包括该包），这样我就不必再遇到更多麻烦了。&lt;/p&gt;
+&lt;p&gt;接下来就是替代 ls 了（其实也不算替代）， 只需要在 shell 配置文件中写下这行设置 ls 的别名即可：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;ls&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;lsd&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;另外一些有用的别名：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;ls -l&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;la&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;ls -a&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;lla&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;ls -la&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;lt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;ls --tree&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>六月，匆匆</title>
+      <link>https://old.ultrarare.space/post/2019-06-30-how-time-flies/</link>
+      <pubDate>Sun, 30 Jun 2019 16:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-06-30-how-time-flies/</guid>
+      <description>&lt;p&gt;终于，结束了忙碌而浑噩的一周；眼前窗外，余晖还映照着那堵略有土色的墙；云虽绵延而厚重，却也透着些许泛蓝的光，偶有些飞鸟飘过，散落的鸣声亦随风而去… 不知不觉，似乎还挺遥远的 2019 年也已走过了 6 月。我的脑海中总是闪现着什么，无论是在十校联考期间的梦境，还是月初课堂上的瞬间，抑或 21 日信息技术学业水平测试的铃响，它都狠狠地敲打着我，“光阴易逝”。&lt;/p&gt;
+&lt;p&gt;四年前的早些时候，我终于小学毕业了，如释重负的同时却又感到无所适从，也对，我根本不知道我到底该做什么…&lt;/p&gt;
+&lt;p&gt;似乎是命运的指引，沉迷于电子游戏中的我开始慢慢愿意去接触一些存在于游戏之中而又在游戏之外的东西；如今我更乐意看些”闲书”，恐怕也是从这里开始的吧。&lt;/p&gt;
+&lt;p&gt;人们总是乐意去观摩事物的表面，却忘了真正支撑一样事物的东西，本不是其表面的光鲜或粗糙，而更多是那些形而上的事理，这些事理是消费者价值所不能及的，也是仅具有消费者价值的人们所无法得知的。&lt;/p&gt;
+&lt;p&gt;我极力找寻过一些观点，它们像是石下的杠杆一样撬动了我毫不稳固的根基；但像是 UNIX 哲学，命令之乐，开源之类的东西未免太过叫人眼花缭乱，我更像是浪潮汹涌中一艘观不到灯塔的孤舟，任由洋流击打推行，所做的最大努力不过是保持自己不受颠覆罢了。&lt;/p&gt;
+&lt;p&gt;2017 年夏，我有了一次跨越中国南北的旅行。虽有如此好的机会，我却成了手机的奴隶，将一切东西都抛到了九霄云外，忘掉了任何 “信仰” 或是 “承诺”，纵使有再好的美景也难以让我将目光移开屏幕。也在那次出行后，我再也没有了足够密切的网络社交关系。&lt;/p&gt;
+&lt;p&gt;2018 年，初中生涯的最后一学期，却成了我入学以来最为难忘的时期。无论是最后的那几场活动，还是对1点以后睡觉的生活的告别，抑或中考时宾馆看了三天电视，我都有极深的印象，这是前所未有的。&lt;/p&gt;
+&lt;p&gt;之后那个并没有多长的暑假，无论是网络上还是现实中的我，都总是形单影只（宅在家里自然如此…），此外所做的事也不过看完了 “游戏王:决斗怪兽”，没日没夜地玩着 YGOMobile，以至于八月初开学的晚自习，我流利地写下了张纸的出牌对策，还画下了决斗场地…&lt;/p&gt;
+&lt;p&gt;可似乎也只是这样了。&lt;/p&gt;
+&lt;p&gt;我的时间早已经统统成为了 “过去”，几年的经历也不过最后成了几段需要加以思索才能从脑海中找到的文字，否则我甚至连自己是谁都不知道，这样真的足够吗？&lt;/p&gt;
+&lt;p&gt;月初课堂上，我兀地想到 “今天是在6月了”，记忆中不久前补课完后的微雪业已在似火骄阳下隐去；涌上心头的，是对小学几乎仅有的印象–朱自先生在 “匆匆” 中写下的:“你聪明的，告诉我，我们的日子为什么一去不复返了呢？”，一种莫名的哀思像是渗入了我的血液一般，久久不能释怀…&lt;/p&gt;
+&lt;p&gt;不久前，在体会过一次 “睡眠瘫痪” 现象后，更让我理解到光阴的可贵。我意识到其实我们活着的每一天都是一份礼物，没有理所应当的事，也没有一天应该被挥霍；仅仅拥有行动的能力，仅仅能看到自然的美妙，本身就已经是一种难得的幸运了，我们也只不过是习惯了这种幸运罢了。&lt;/p&gt;
+&lt;p&gt;王羲之先生在 “兰亭集序” 中写到:“向之所兴，俯仰之间，已为陈迹。犹不能不以之兴怀”，“每览昔人兴感之由，若合一契，未尝不临文嗟悼，不能喻之于怀”，想来对于光阴的流逝，不论历史的车轮怎样滚动，不论社会基础怎样变化，也不论科技怎样发展，都始终寄居于人们心中，引起着无数人的感慨。也许这就是 “人” 的存在之一罢。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>My First Post</title>
+      <link>https://old.ultrarare.space/post/2019-06-30-my-first-post/</link>
+      <pubDate>Sun, 30 Jun 2019 08:00:00 +0800</pubDate>
+      
+      <guid>https://old.ultrarare.space/post/2019-06-30-my-first-post/</guid>
+      <description>&lt;p&gt;Hello world! I’ve set up my site!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
