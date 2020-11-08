@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Boiledscript</title>
-    <link>https://old.ultrarare.space/post/</link>
+    <link>https://rakino.github.io/BoiledScript/post/</link>
     <description>Recent content in Posts on Boiledscript</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 27 Aug 2019 08:00:00 +0800</lastBuildDate><atom:link href="https://old.ultrarare.space/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Aug 2019 08:00:00 +0800</lastBuildDate><atom:link href="https://rakino.github.io/BoiledScript/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ESP 被霸占的解决方案</title>
-      <link>https://old.ultrarare.space/post/2019-08-27-esp/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-08-27-esp/</link>
       <pubDate>Tue, 27 Aug 2019 08:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-08-27-esp/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-08-27-esp/</guid>
       <description>&lt;p&gt;两天前，我在新机上以 GPT + EFI 的方式装好了 Arch Linux。&lt;/p&gt;
 &lt;p&gt;这天晚上，我开始安装 Deepin，然而它的安装器并未提供“不安装启动引导器”的选项，因而 ESP 被无情地霸占了…&lt;/p&gt;
 &lt;p&gt;接下来该怎么做呢？重装 Arch Linux？显然不是。&lt;/p&gt;
@@ -61,10 +61,10 @@ pacman -S linux-lts amd-ucode
     
     <item>
       <title>关于博客的一些更新</title>
-      <link>https://old.ultrarare.space/post/2019-08-26-some-updates/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-08-26-some-updates/</link>
       <pubDate>Mon, 26 Aug 2019 20:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-08-26-some-updates/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-08-26-some-updates/</guid>
       <description>&lt;p&gt;很显然，这篇 post 其实也是有预先计划的。&lt;/p&gt;
 &lt;p&gt;然而出现了一些小问题&lt;del&gt;是我眼瞎没错了&lt;/del&gt;，blog 上出现了某些变故，所以计划有所改动。&lt;/p&gt;
 &lt;h2 id=&#34;host-provider&#34;&gt;Host Provider&lt;/h2&gt;
@@ -86,10 +86,10 @@ pacman -S linux-lts amd-ucode
     
     <item>
       <title>整理旧物</title>
-      <link>https://old.ultrarare.space/post/2019-08-26-messy/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-08-26-messy/</link>
       <pubDate>Mon, 26 Aug 2019 16:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-08-26-messy/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-08-26-messy/</guid>
       <description>&lt;p&gt;又是新的别离与重逢啊。&lt;/p&gt;
 &lt;p&gt;&lt;del&gt;其实这是 25 日做的事，只是一直没有写而已&lt;/del&gt;&lt;/p&gt;
 &lt;hr&gt;
@@ -98,38 +98,38 @@ pacman -S linux-lts amd-ucode
 &lt;h2 id=&#34;旧机&#34;&gt;旧机&lt;/h2&gt;
 &lt;p&gt;旧机是这里边年龄最大的了（10岁），然而我并没有什么想说的话。&lt;/p&gt;
 &lt;p&gt;很是杂乱的线，原装的 CPU 还装在一个小的透明塑料盒中，放在我面前的显示器旁~~（好像这个仍然不是原装的…）~~&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/old-pc-outer.jpg&#34; alt=&#34;Old PC&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/25/old-pc-outer.jpg&#34; alt=&#34;Old PC&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;minecraft-相关&#34;&gt;Minecraft 相关&lt;/h2&gt;
 &lt;p&gt;Minecraft 对我来讲，算是很深的回忆了… 毕竟最初能称为网友的人，也都是在玩游戏的过程中遇到的。&lt;/p&gt;
 &lt;p&gt;很重要，但是不敢再想。&lt;/p&gt;
 &lt;p&gt;Gameband 请永眠吧，这两个玩具倒是可以拿出来放着…&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/minecraft-related-3.jpg&#34; alt=&#34;Minecraft related things&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/25/minecraft-related-3.jpg&#34; alt=&#34;Minecraft related things&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;raspberry-pi&#34;&gt;Raspberry Pi&lt;/h2&gt;
 &lt;p&gt;买了一小堆相关的东西，然而还是没怎么用。&lt;/p&gt;
 &lt;p&gt;中间那个是摄像头，本来想拿来拍些照片做 Timelapse，结果烧坏了…&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/raspberry-pi-3b-plus.jpg&#34; alt=&#34;Raspberry Pi 3b+&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/25/raspberry-pi-3b-plus.jpg&#34; alt=&#34;Raspberry Pi 3b+&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;手机&#34;&gt;手机&lt;/h2&gt;
 &lt;p&gt;我还完全记得当时打开这个盒子的情形，可惜一切都过得好快啊…&lt;/p&gt;
 &lt;p&gt;是时候跟你说再见了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/phone-in-the-box.jpg&#34; alt=&#34;Smartisan OC105&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/25/phone-in-the-box.jpg&#34; alt=&#34;Smartisan OC105&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;del&gt;换壳如换机&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/lie-above-the-boxes.jpg&#34; alt=&#34;Phone related&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/25/lie-above-the-boxes.jpg&#34; alt=&#34;Phone related&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;外设&#34;&gt;外设&lt;/h2&gt;
 &lt;p&gt;靠下的那个键盘是旧机带的 PS/2 键盘，除了左侧没有 Win 键以外都还好…&lt;/p&gt;
 &lt;p&gt;右上的耳机，最开始是为了游戏（ CS:GO ）准备的，然而随着我慢慢离开游戏，也生灰了。&lt;/p&gt;
 &lt;p&gt;左上的键鼠本来是为 Raspberry Pi 准备的，不过现在出了些问题，也用不上了。&lt;/p&gt;
 &lt;p&gt;至于那个耳机，为手机准备的，依旧用不上了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/outsets.jpg&#34; alt=&#34;outsets&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/25/outsets.jpg&#34; alt=&#34;outsets&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;yugioh&#34;&gt;YuGiOh&lt;/h2&gt;
 &lt;p&gt;如你所见或所知（抑或你压根不知道），我很喜欢《游戏王》及其衍生产品。&lt;/p&gt;
 &lt;p&gt;我也有买过&lt;strong&gt;一个&lt;/strong&gt;相关的产品，应当是在 2014 年发行的（而我是在 2018 年买的）“决斗王的记忆：黑暗仪式篇”，是一个收藏卡组（里面的卡牌基本不能胜任现在大师规则4的环境了）。&lt;/p&gt;
 &lt;p&gt;该盒收录有在 YuGiOh: Duel Monsters（游戏王：决斗怪兽）结局时，Mutou Yugi（武藤游戏）与 Yami Yugi/Atum（暗游戏/亚图姆/法老王/王様）进行打开冥界大门的仪式时 Mutou Yugi 所使用的卡组&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/yugioh-box-outer.jpg&#34; alt=&#34;YuGiOh Box&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/yugioh-box.jpg&#34; alt=&#34;YuGiOh box&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/25/yugioh-box-outer.jpg&#34; alt=&#34;YuGiOh Box&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/25/yugioh-box.jpg&#34; alt=&#34;YuGiOh box&#34;&gt;&lt;/p&gt;
 &lt;p&gt;有附带几张观赏卡（未展示），其中包含一张 拉的翼神龙（太阳神的翼神龙/黄金脆皮鸡）的复刻卡（但有标明禁止用于正规比赛，虽说现在这年头也没人用）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/yugioh-cards.jpg&#34; alt=&#34;YuGiOh cards&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/25/yugioh-cards.jpg&#34; alt=&#34;YuGiOh cards&#34;&gt;&lt;/p&gt;
 &lt;p&gt;一份关于游戏王卡牌发展史的纪念册&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/25/yugioh-history.jpg&#34; alt=&#34;YuGiOh history&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/25/yugioh-history.jpg&#34; alt=&#34;YuGiOh history&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;大概就这样了吧。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;这些东西其实是按照时间先后顺序排列的&lt;/p&gt;
 &lt;p&gt;还好在我写这篇 post 的时候还是存在一点痛苦… 致使我既不难过也不开心。&lt;/p&gt;
@@ -144,10 +144,10 @@ pacman -S linux-lts amd-ucode
     
     <item>
       <title>为 Linux 迟来的生日祝福</title>
-      <link>https://old.ultrarare.space/post/2019-08-26-linux-28th-anniversary/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-08-26-linux-28th-anniversary/</link>
       <pubDate>Mon, 26 Aug 2019 08:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-08-26-linux-28th-anniversary/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-08-26-linux-28th-anniversary/</guid>
       <description>&lt;p&gt;因为注意力的问题渐渐淡出社交媒体的同时发现自己好像连新闻都没看了…&lt;/p&gt;
 &lt;p&gt;按照惯例，我恰巧在 Linux 内核的 28 岁生日的第二天看到了与之相关的文章。&lt;/p&gt;
 &lt;p&gt;虽说可能常规来讲整十或者整五的年头才值得纪念，但我并不了解自己能否在两年后的 8 月 25 日记得（或者说还有没有机会记得）这件事，所以这里先写一份。届时如果有机会的话，也正好有一个对比自己在不同时段想法的依托，这样挺不错的。&lt;/p&gt;
@@ -173,10 +173,10 @@ pacman -S linux-lts amd-ucode
     
     <item>
       <title>终于有独立域名了</title>
-      <link>https://old.ultrarare.space/post/2019-08-10-new-domain-name/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-08-10-new-domain-name/</link>
       <pubDate>Sat, 10 Aug 2019 08:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-08-10-new-domain-name/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-08-10-new-domain-name/</guid>
       <description>&lt;p&gt;大概又在瞎折腾了吧。&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;我不该把键盘借出去的，&lt;del&gt;尤其是借给一个游戏玩家…&lt;/del&gt; &lt;code&gt;W&lt;/code&gt; &lt;code&gt;S&lt;/code&gt; &lt;code&gt;A&lt;/code&gt; &lt;code&gt;D&lt;/code&gt; 附近的按键有点问题了&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;一不小心睡懵了，不过也还行，总算是休息了一会儿了&lt;/em&gt;&lt;/p&gt;
@@ -204,11 +204,11 @@ pacman -S linux-lts amd-ucode
     
     <item>
       <title>再见，Xmonad；你好，i3wm</title>
-      <link>https://old.ultrarare.space/post/2019-08-02-switching-to-i3wm/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-08-02-switching-to-i3wm/</link>
       <pubDate>Fri, 02 Aug 2019 16:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-08-02-switching-to-i3wm/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/wallpaper.png&#34; alt=&#34;void desktop or wallpaper&#34;&gt;
+      <guid>https://rakino.github.io/BoiledScript/post/2019-08-02-switching-to-i3wm/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/02/wallpaper.png&#34; alt=&#34;void desktop or wallpaper&#34;&gt;
 在用了一段时间 Xmonad 以后，我还是决定将 i3wm，确切说是 i3-gaps 作为了我的窗口管理器。&lt;/p&gt;
 &lt;p&gt;Xmonad 是个相当理想的窗口管理器，其配置相当灵活强大，囊括众多细节，然而也就是这点让我离开了它。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;对我来讲，过于复杂，学习成本太高了…&lt;/strong&gt;&lt;/p&gt;
@@ -217,20 +217,20 @@ pacman -S linux-lts amd-ucode
 &lt;p&gt;这次试着使用 KiTTY 作为终端模拟器，它在键盘操作方面十分不错，不久以后我就能登入一台服务器了，有这样一个完美的本地终端模拟器 + 远程终端连接器还是十分不错的。（update: KiTTY 使用 ssh 存在某些问题，也许以后会讲解决方案）&lt;/p&gt;
 &lt;p&gt;配合着 pywal 自动根据桌面背景更改 shell 配色，&lt;del&gt;我就再也不用担心自己搞的瞎了眼的配色了。&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;大概就是这样，以下附图！&lt;del&gt;（图片可点击）&lt;/del&gt;（已关闭 Fancybox）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/single-terminal.png&#34; alt=&#34;single terminal&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/multiple-terminal.png&#34; alt=&#34;multiple terminal&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/editing-i3-config-file-under-vim.png&#34; alt=&#34;editing i3 config file under vim&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/ranger-previewing-image.png&#34; alt=&#34;ranger previewing image&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/08/02/firefox.png&#34; alt=&#34;firefox&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/02/single-terminal.png&#34; alt=&#34;single terminal&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/02/multiple-terminal.png&#34; alt=&#34;multiple terminal&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/02/editing-i3-config-file-under-vim.png&#34; alt=&#34;editing i3 config file under vim&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/02/ranger-previewing-image.png&#34; alt=&#34;ranger previewing image&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/08/02/firefox.png&#34; alt=&#34;firefox&#34;&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>登入后直接进入 X</title>
-      <link>https://old.ultrarare.space/post/2019-08-02-start-x-at-boot/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-08-02-start-x-at-boot/</link>
       <pubDate>Fri, 02 Aug 2019 08:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-08-02-start-x-at-boot/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-08-02-start-x-at-boot/</guid>
       <description>&lt;p&gt;大概我没有办法完全活在 TTY 下吧。&lt;/p&gt;
 &lt;p&gt;那样的话每次登入后都要手动输入一次 &lt;code&gt;startx&lt;/code&gt; 又有什么意思？&lt;/p&gt;
 &lt;p&gt;登录管理器？不行，有点浪费资源！&lt;/p&gt;
@@ -280,10 +280,10 @@ end
     
     <item>
       <title>（译）Hugo 的全文 RSS</title>
-      <link>https://old.ultrarare.space/post/2019-08-01-translation-full-text-rss-in-hugo/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-08-01-translation-full-text-rss-in-hugo/</link>
       <pubDate>Thu, 01 Aug 2019 08:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-08-01-translation-full-text-rss-in-hugo/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-08-01-translation-full-text-rss-in-hugo/</guid>
       <description>&lt;p&gt;刚开始使用 Hugo 的时候，我发现它有一个很叫人不爽的默认设定：生成的 RSS 订阅源里只有文章的标题和部分文章（变量 &lt;code&gt;Summary&lt;/code&gt; , 或者说 &lt;code&gt;!--more--&lt;/code&gt; 标签标记之前的内容），这样可能会造成一些不便。&lt;del&gt;而我又因为完全没理解 Hugo 的工作原理不知道该怎么办。&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;所幸有&lt;a href=&#34;https://www.godo.dev/tutorials/hugo-full-text-rss/&#34;&gt;这篇文章&lt;/a&gt;(或者说下文的原文)帮助我&lt;del&gt;渡过难关。&lt;/del&gt;&lt;/p&gt;
 &lt;h2 id=&#34;许可证相关&#34;&gt;许可证相关&lt;/h2&gt;
@@ -440,10 +440,10 @@ end
     
     <item>
       <title>又一次，“你好，世界”。</title>
-      <link>https://old.ultrarare.space/post/2019-07-31-yet-another-first-post/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-07-31-yet-another-first-post/</link>
       <pubDate>Wed, 31 Jul 2019 08:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-07-31-yet-another-first-post/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-07-31-yet-another-first-post/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;每当某人的 GitHub 上 commits 迭起时，所有人都会知道：那家伙多半 blog 又废了。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -462,19 +462,19 @@ end
 &lt;p&gt;在不久以前，我&lt;del&gt;因为尝试安装 FreeBSD &lt;del&gt;把引导加载器搞坏了（也不再有启动分区了），费了些周折，我还是&lt;/del&gt;在把两个硬盘都给格式化后&lt;/del&gt;把一切都搞定了，大概现在是 Deepin GNU/Linux（非我用）+ Arch Linux 双系统吧，终于摆脱了需要顾及到 Micro$oft Windows 的烦恼了耶！&lt;/p&gt;
 &lt;p&gt;现在也开始使用 Syncthing（Web GUI万岁！）在不同设备间同步数据，以免再次玩脱时浪费时间和出现不必要的损失。&lt;/p&gt;
 &lt;p&gt;至于桌面环境，仍然是纯 Xmonad，我更乐意在一个足够安静，没有多余打扰的环境下&lt;del&gt;生存&lt;/del&gt;；我也成功叛教成为了 Vim 党。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/07/31/spacevim.png&#34; alt=&#34;SpaceVim&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/07/31/ranger_in_sakura.png&#34; alt=&#34;Ranger&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/07/31/blog_preview_in_firefox.png&#34; alt=&#34;Blog Preview&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/07/31/markdown_environment.png&#34; alt=&#34;Markdown Environment&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/07/31/spacevim.png&#34; alt=&#34;SpaceVim&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/07/31/ranger_in_sakura.png&#34; alt=&#34;Ranger&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/07/31/blog_preview_in_firefox.png&#34; alt=&#34;Blog Preview&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/07/31/markdown_environment.png&#34; alt=&#34;Markdown Environment&#34;&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>暑假结束了</title>
-      <link>https://old.ultrarare.space/post/2019-07-11-the-end-of-my-summer-holiday-2019/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-07-11-the-end-of-my-summer-holiday-2019/</link>
       <pubDate>Thu, 11 Jul 2019 16:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-07-11-the-end-of-my-summer-holiday-2019/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-07-11-the-end-of-my-summer-holiday-2019/</guid>
       <description>&lt;p&gt;昨晚接到通知，明天要尽早回校参加训练。&lt;/p&gt;
 &lt;p&gt;难得的暑假也只是这么少数几天，挺叫人难受的；不过既然我连键盘都给借出去了，待在家也的确没有太多乐趣。想到 8 月就要上学，还得再参加一次军训，心里也不知是该喜还是该忧…&lt;/p&gt;
 &lt;p&gt;今天下午进了城，坐在书房中，窗外甚是空旷，悠悠天地裹住了世间万物，这样一般景象是难以在群山之间看到的。这里能作为城市而存在，想必也与这样的地理环境分不开。&lt;/p&gt;
@@ -487,14 +487,14 @@ end
     
     <item>
       <title>更加丰富多彩的 ls 输出</title>
-      <link>https://old.ultrarare.space/post/2019-07-11-make-ls-output-wonderful/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-07-11-make-ls-output-wonderful/</link>
       <pubDate>Thu, 11 Jul 2019 08:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-07-11-make-ls-output-wonderful/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-07-11-make-ls-output-wonderful/</guid>
       <description>&lt;p&gt;作为一个 ls 高度依赖者, 我的 shell 历史记录里总是充满 “ls” 的字样，我甚至还在思想放空的时候不由自主敲着 “ls”，显然 ls 已经成了我生活中的一部分了。&lt;/p&gt;
 &lt;p&gt;即便有 &amp;ndash;color=auto 的加成, 在图形界面下却总是面对着纯文本的环境多少还是有些叫人乏味；当我了解到还有更加多彩（没错, 我喜欢鲜艳颜色）并且能同时输出与文件相对应的图标 (由一个字符充当) 时, 我立刻心动了。&lt;/p&gt;
 &lt;p&gt;最开始我找到了 &lt;a href=&#34;https://github.com/athityakumar/colorls#installation&#34;&gt;colorls&lt;/a&gt;, 但由于安装 colorls 需要同时安装一些 ruby 依赖，我就放弃了尝试（我不希望安装一些不一定用得上的软件）。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://old.ultrarare.space/images/2019/07/11/screen_lsd.png&#34; alt=&#34;lsd&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://rakino.github.io/BoiledScript/images/2019/07/11/screen_lsd.png&#34; alt=&#34;lsd&#34;&gt;&lt;/p&gt;
 &lt;p&gt;随后我发现了一个相似项目，&lt;a href=&#34;https://github.com/Peltoche/lsd&#34;&gt;lsd&lt;/a&gt;（上图），它是受到了 colorls 启发的，据称相较于 colorls 速度更快，且没有多余的依赖，这对我而言是很好的。&lt;/p&gt;
 &lt;p&gt;在安装了 lsd 后，我在显示图标上遇到了麻烦；这是字体不足造成的，只需安装相应字体即可。&lt;/p&gt;
 &lt;p&gt;我选择了一个十分齐全的字体集合 &lt;code&gt;nerd-fonts-complete&lt;/code&gt;（&lt;a href=&#34;https://aur.archlinux.org/packages/nerd-fonts-complete/&#34;&gt;AUR&lt;/a&gt; 及 &lt;a href=&#34;https://github.com/ryanoasis/nerd-fonts&#34;&gt;Github&lt;/a&gt;，在 Arch Linux CN 源中也有包括该包），这样我就不必再遇到更多麻烦了。&lt;/p&gt;
@@ -527,10 +527,10 @@ end
     
     <item>
       <title>六月，匆匆</title>
-      <link>https://old.ultrarare.space/post/2019-06-30-how-time-flies/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-06-30-how-time-flies/</link>
       <pubDate>Sun, 30 Jun 2019 16:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-06-30-how-time-flies/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-06-30-how-time-flies/</guid>
       <description>&lt;p&gt;终于，结束了忙碌而浑噩的一周；眼前窗外，余晖还映照着那堵略有土色的墙；云虽绵延而厚重，却也透着些许泛蓝的光，偶有些飞鸟飘过，散落的鸣声亦随风而去… 不知不觉，似乎还挺遥远的 2019 年也已走过了 6 月。我的脑海中总是闪现着什么，无论是在十校联考期间的梦境，还是月初课堂上的瞬间，抑或 21 日信息技术学业水平测试的铃响，它都狠狠地敲打着我，“光阴易逝”。&lt;/p&gt;
 &lt;p&gt;四年前的早些时候，我终于小学毕业了，如释重负的同时却又感到无所适从，也对，我根本不知道我到底该做什么…&lt;/p&gt;
 &lt;p&gt;似乎是命运的指引，沉迷于电子游戏中的我开始慢慢愿意去接触一些存在于游戏之中而又在游戏之外的东西；如今我更乐意看些”闲书”，恐怕也是从这里开始的吧。&lt;/p&gt;
@@ -549,10 +549,10 @@ end
     
     <item>
       <title>My First Post</title>
-      <link>https://old.ultrarare.space/post/2019-06-30-my-first-post/</link>
+      <link>https://rakino.github.io/BoiledScript/post/2019-06-30-my-first-post/</link>
       <pubDate>Sun, 30 Jun 2019 08:00:00 +0800</pubDate>
       
-      <guid>https://old.ultrarare.space/post/2019-06-30-my-first-post/</guid>
+      <guid>https://rakino.github.io/BoiledScript/post/2019-06-30-my-first-post/</guid>
       <description>&lt;p&gt;Hello world! I’ve set up my site!&lt;/p&gt;
 </description>
     </item>
