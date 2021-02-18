@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Boiledscript</title>
-    <link>https://rakino.github.io/BoiledScript/categories/</link>
-    <description>Recent content in Categories on Boiledscript</description>
+    <title>Categories on Boiled Script</title>
+    <link>https://bs.ultrarare.space/categories/</link>
+    <description>Recent content in Categories on Boiled Script</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://rakino.github.io/BoiledScript/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh</language><atom:link href="https://bs.ultrarare.space/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

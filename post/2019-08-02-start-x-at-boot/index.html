@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>登入后直接进入 X - Boiledscript</title>
+  <title>登入后直接进入 X - Boiled Script</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -23,33 +23,33 @@
 
 
 
-<meta name="generator" content="Hugo 0.78.1 with theme even" />
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
 
 
-<link rel="canonical" href="https://rakino.github.io/BoiledScript/post/2019-08-02-start-x-at-boot/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/BoiledScript/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/BoiledScript/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/BoiledScript/favicon-16x16.png">
-<link rel="manifest" href="/BoiledScript/manifest.json">
-<link rel="mask-icon" href="/BoiledScript/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://bs.ultrarare.space/post/2019-08-02-start-x-at-boot/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
-<link href="/BoiledScript/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
-<link href="/BoiledScript/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+<link href="/sass/main.min.78f8f17bab244b9ee62ad16480c9584d5fc2db06ae20681d1ca225cefd80767c.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
 
 <meta property="og:title" content="登入后直接进入 X" />
 <meta property="og:description" content="大概我没有办法完全活在 TTY 下吧。 那样的话每次登入后都要手动输入一次 startx 又有什么意思？ 登录管理器？不行，有点浪费资源！ 那我就用其它方法吧 原料 xin" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://rakino.github.io/BoiledScript/post/2019-08-02-start-x-at-boot/" />
+<meta property="og:url" content="https://bs.ultrarare.space/post/2019-08-02-start-x-at-boot/" />
 <meta property="article:published_time" content="2019-08-02T08:00:00+08:00" />
 <meta property="article:modified_time" content="2019-08-02T08:00:00+08:00" />
 <meta itemprop="name" content="登入后直接进入 X">
 <meta itemprop="description" content="大概我没有办法完全活在 TTY 下吧。 那样的话每次登入后都要手动输入一次 startx 又有什么意思？ 登录管理器？不行，有点浪费资源！ 那我就用其它方法吧 原料 xin">
 <meta itemprop="datePublished" content="2019-08-02T08:00:00+08:00" />
 <meta itemprop="dateModified" content="2019-08-02T08:00:00+08:00" />
-<meta itemprop="wordCount" content="320">
+<meta itemprop="wordCount" content="313">
 
 
 
@@ -71,7 +71,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/BoiledScript/" class="logo">Boiledscript</a>
+    <a href="/" class="logo">Boiled Script</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -81,9 +81,9 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/BoiledScript/">
+    <a href="/">
         <li class="mobile-menu-item">Home</li>
-      </a><a href="/BoiledScript/post/">
+      </a><a href="/post/">
         <li class="mobile-menu-item">Archives</li>
       </a>
   </ul>
@@ -91,15 +91,15 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/BoiledScript/" class="logo">Boiledscript</a>
+  <a href="/" class="logo">Boiled Script</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/BoiledScript/">Home</a>
+        <a class="menu-item-link" href="/">Home</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/BoiledScript/post/">Archives</a>
+        <a class="menu-item-link" href="/post/">Archives</a>
       </li>
   </ul>
 </nav>
@@ -116,7 +116,7 @@
       <div class="post-meta">
         <span class="post-time"> 2019-08-02 </span>
         
-          <span class="more-meta"> 约 320 字 </span>
+          <span class="more-meta"> 约 313 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -140,36 +140,17 @@
 </ul>
 <h2 id="具体操作">具体操作</h2>
 <p>对于 <code>bash</code>，需要修改 <code>~/.bash_profile</code>；而 <code>zsh</code> 则是 <code>~/.zlogin</code> 或 <code>~/.zprofile</code>。在上述文件中加入一行即可</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[[</span> -z <span class="nv">$DISPLAY</span> <span class="o">&amp;&amp;</span> <span class="nv">$XDG_VTNR</span> -eq <span class="m">1</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">exec</span> startx
-</code></pre></td></tr></table>
-</div>
-</div><p><code>&amp;&amp;</code> 表示逻辑与；<code>[[ ]]</code> 为条件表达式，返回值为 0 或 1 。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[[</span> -z <span class="nv">$DISPLAY</span> <span class="o">&amp;&amp;</span> <span class="nv">$XDG_VTNR</span> -eq <span class="m">1</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="nb">exec</span> startx
+</code></pre></div><p><code>&amp;&amp;</code> 表示逻辑与；<code>[[ ]]</code> 为条件表达式，返回值为 0 或 1 。</p>
 <p>此语句指：当 <code>$DISPLAY</code>（是否已打开显示）为零且 <code>$XDG_VTNR</code>（现在所处虚拟控制台号码）等于 1 时，（且）执行 <code>startx</code></p>
 <p>fish 中则是在 <code>~/.config/fish/config.fish</code> 中加入以下内容</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># start X at login</span>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># start X at login</span>
 <span class="k">if</span> status --is-login
   <span class="k">if</span> <span class="nb">test</span> -z <span class="s2">&#34;</span><span class="nv">$DISPLAY</span><span class="s2">&#34;</span> -a <span class="nv">$XDG_VTNR</span> <span class="o">=</span> <span class="m">1</span>
     <span class="nb">exec</span> startx
   end
 end
-</code></pre></td></tr></table>
-</div>
-</div><p><code>test</code> 和 <code>[[ ]]</code> 用法相似。</p>
+</code></pre></div><p><code>test</code> 和 <code>[[ ]]</code> 用法相似。</p>
 <p><del>可以每次开机少打一行字了ww</del></p>
 <h2 id="参考">参考</h2>
 <p><a href="https://wiki.archlinux.org/index.php/Xinit#Autostart_X_at_login">Autostart X at login</a> - Arch Wiki</p>
@@ -191,18 +172,18 @@ end
   
   <p class="copyright-item">
     <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
   </p>
 </div>
 <footer class="post-footer">
       
       <nav class="post-nav">
-        <a class="prev" href="/BoiledScript/post/2019-08-02-switching-to-i3wm/">
+        <a class="prev" href="/post/2019-08-02-switching-to-i3wm/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">再见，Xmonad；你好，i3wm</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/BoiledScript/post/2019-08-01-translation-full-text-rss-in-hugo/">
+        <a class="next" href="/post/2019-08-01-translation-full-text-rss-in-hugo/">
             <span class="next-text nav-default">（译）Hugo 的全文 RSS</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
@@ -223,10 +204,10 @@ end
     <footer id="footer" class="footer">
       <div class="social-links">
       <a href="mailto:hako@ultrarare.space" class="iconfont icon-email" title="email"></a>
-      <a href="https://mastodon.social/@hakoesph" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://va-11.com/@hako" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/rakino" class="iconfont icon-github" title="github"></a>
       <a href="https://space.bilibili.com/130868739" class="iconfont icon-bilibili" title="bilibili"></a>
-  <a href="https://rakino.github.io/BoiledScript/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="https://bs.ultrarare.space/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -244,7 +225,7 @@ end
   <span class="copyright-year">
     &copy; 
     2019 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -257,20 +238,20 @@ end
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script src="/BoiledScript/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/BoiledScript/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/BoiledScript/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/BoiledScript/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-    <script type="text/javascript" src="/BoiledScript/lib/timeago/timeago-3.0.2.min.js"></script>
-    <script type="text/javascript" src="/BoiledScript/lib/timeago/timeago.locales-3.0.2.min.js"></script>
+  <script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+    <script type="text/javascript" src="/lib/timeago/timeago-3.0.2.min.js"></script>
+    <script type="text/javascript" src="/lib/timeago/timeago.locales-3.0.2.min.js"></script>
   <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
-    var languageCode = "zh-cn".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    var languageCode = "zh".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
   </script>
 
 
 
-<script type="text/javascript" src="/BoiledScript/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
 
 
 
